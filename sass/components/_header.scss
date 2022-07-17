@@ -9,7 +9,7 @@
     }
 
     &-blog-name{
-        width:200px;
+        min-width:200px;
         a{
             color:#000;
             display: inline-block;
@@ -42,9 +42,19 @@
             font-size:18px;
             font-weight: 400;
             transition: all .15s;
+            margin-left:10px;
             &:hover{
+                color:blue;
+                opacity: 0.6;
+                text-decoration: underline;
+            }
+
+            &.active{
                 background-color:#efefef;
                 border-radius:3px;
+                color:#121212;
+                opacity: 1;
+                text-decoration: none;
             }
 
         }
