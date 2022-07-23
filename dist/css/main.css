@@ -396,7 +396,7 @@ main {
   font-weight: 400;
   -webkit-transition: all 0.15s;
   transition: all 0.15s;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 .header-navigation a:hover {
   color: blue;
