@@ -1,36 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Reveal animations on scroll for items that are not initially in viewport
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+const MEDIUM_USERNAME = "handbuz"; // buraya kendi username
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+const RSS_URL = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
+const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
 
-    // Initial styles for animations are set inside CSS (fade-in).
-    // For specific elements like cards that might appear on scroll
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
-        observer.observe(card);
+async function getPosts() {
+    try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        renderPosts(data.items);
+    } catch (err) {
+        console.error("Hata:", err);
+    }
+}
+
+function renderPosts(posts) {
+    const container = document.querySelector(".blog-list");
+
+    container.innerHTML = ""; // statik yazıları temizle
+
+    posts.slice(0, 10).forEach(post => {
+        const article = document.createElement("article");
+        article.className = "blog-item";
+
+        article.innerHTML = `
+            <h2 class="blog-title">
+                <a href="${post.link}" target="_blank">
+                    ${post.title}
+                </a>
+            </h2>
+        `;
+
+        container.appendChild(article);
     });
+}
 
-    const blogItems = document.querySelectorAll('.blog-item');
-    blogItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(10px)';
-        item.style.transition = `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
-        observer.observe(item);
-    });
-});
+getPosts();
