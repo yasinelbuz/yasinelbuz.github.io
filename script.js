@@ -26,7 +26,7 @@ function renderPosts(posts) {
         article.innerHTML = `
             <h2 class="blog-title">
                 <a href="${post.link}" target="_blank">
-                    ${post.title}
+                    ★ ${post.title}
                 </a>
             </h2>
         `;
@@ -34,5 +34,7 @@ function renderPosts(posts) {
         container.appendChild(article);
     });
 }
+
+
 
 getPosts();
