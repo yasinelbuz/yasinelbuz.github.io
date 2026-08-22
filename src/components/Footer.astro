@@ -1,0 +1,143 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+const today = new Date();
+
+const recentPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 10);
+---
+
+<footer>
+	<div class="container">
+		<div class="brand">
+			<h2>YASIN ELBÜZ</h2>
+			<p class="tagline">Girişimci, geliştirici ve üretici.</p>
+			<p class="tagline">Üretiyorum. Deniyorum. Öğreniyorum. Paylaşıyorum.</p>
+		</div>
+
+		<hr />
+
+		<div class="columns">
+			<div class="col">
+				<h3>Keşfet</h3>
+				<ul>
+					<li><a href="/blog">Yazılar</a></li>
+					<li><a href="/projects">Projeler</a></li>
+					<li><a href="/deneyimler">Deneyimler</a></li>
+					<li><a href="/about">Hakkımda</a></li>
+					<li><a href="/su-an">Şu An</a></li>
+				</ul>
+			</div>
+
+			<div class="col">
+				<h3>Takip Et</h3>
+				<ul>
+					<li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+					<li><a href="https://x.com/" target="_blank" rel="noopener">X</a></li>
+					<li><a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+					<li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+				</ul>
+			</div>
+
+			<div class="col">
+				<h3>İletişim</h3>
+				<ul>
+					<li><a href="mailto:hello@example.com">E-posta</a></li>
+				</ul>
+			</div>
+
+			<div class="col">
+				<h3>Son Yazılar</h3>
+				<ul>
+					{
+						recentPosts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<span class="post-date">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+
+		<hr />
+
+		<p class="copyright">© {today.getFullYear()} Yasin Elbüz</p>
+	</div>
+</footer>
+
+<style>
+	footer {
+		margin-top: 4em;
+		padding: 3em 0 4em 0;
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+	}
+	.brand {
+		text-align: center;
+	}
+	.brand h2 {
+		margin: 0;
+		letter-spacing: 0.08em;
+		font-size: 1.5em;
+	}
+	.tagline {
+		margin: 0.25em 0 0;
+		color: rgb(var(--gray));
+	}
+	hr {
+		border: none;
+		border-top: 1px solid rgb(var(--black), 12%);
+		margin: 2em 0;
+	}
+	.columns {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 2em;
+	}
+	.col h3 {
+		margin: 0 0 0.75em;
+		font-size: 1.1em;
+		color: rgb(var(--black));
+	}
+	.col ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.col li {
+		margin-bottom: 0.5em;
+	}
+	.col a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+	.col a:hover {
+		color: var(--accent);
+	}
+	.post-date {
+		display: block;
+		font-size: 0.8em;
+		color: rgb(var(--gray));
+	}
+	.copyright {
+		text-align: center;
+		margin: 0;
+		color: rgb(var(--gray));
+	}
+	@media (max-width: 720px) {
+		.columns {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	@media (max-width: 480px) {
+		.columns {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
