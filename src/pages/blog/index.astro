@@ -1,15 +1,18 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { Image } from "astro:assets";
+import placeholderImage from "../../assets/blog-placeholder-1.jpg";
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const [latest, ...rest] = posts;
 ---
 
 <!doctype html>
@@ -17,94 +20,212 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
+			.latest {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+				margin-bottom: 2em;
+			}
+		.latest__header {
+			margin-bottom: 1em;
+			text-align: center;
+		}
+		.latest__date {
+			margin: 0 0 0.5em;
+			font-size: 0.85rem;
+			color: rgb(var(--gray));
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-weight: 300;
+		}
+		.latest__title {
+			margin: 0;
+			font-size: 2.441rem;
+			color: rgb(var(--black));
+			line-height: 1.15;
+			font-family: var(--font-display);
+		}
+		.latest__body {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 2em;
+			align-items: stretch;
+		}
+		.latest__text {
+			align-self: start;
+		}
+			.latest__desc {
+				margin: 0;
+				font-weight: 300;
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+				font-size: 1.35rem;
+			}
+		.latest__image {
+			aspect-ratio: 3 / 2;
+			overflow: hidden;
+		}
+			.latest__image :global(img) {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.3s ease;
+			}
+			.latest:hover .latest__image :global(img) {
+				transform: scale(1.02);
+			}
+		.separator {
+			border: none;
+			border-top: 10px solid rgb(var(--black));
+			margin: 2.5em 0;
+		}
+			.grid {
+				list-style: none;
 				margin: 0;
 				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				gap: 1.5em;
 			}
-			ul li {
-				width: calc(50% - 1rem);
+			.grid li {
+				border-top: 1px solid rgb(var(--black), 10%);
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
+			.grid li:first-child,
+			.grid li:nth-child(2) {
+				border-top: none;
 			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
+			.grid li a {
 				display: block;
+				text-decoration: none;
+				color: inherit;
 			}
-			.title {
+			.card__image {
+				width: 100%;
+				aspect-ratio: 16 / 10;
+				overflow: hidden;
+				margin-bottom: 0.8em;
+			}
+			.card__image :global(img) {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.3s ease;
+			}
+			.grid li a:hover .card__image :global(img) {
+				transform: scale(1.03);
+			}
+			.card__title {
 				margin: 0;
+				font-size: 1.25rem;
 				color: rgb(var(--black));
-				line-height: 1;
+				line-height: 1.3;
+				font-family: var(--font-display);
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+		.card__date {
+			margin: 0.4em 0 0;
+			color: rgb(var(--gray));
+			font-size: 0.85rem;
+			font-weight: 300;
+			letter-spacing: 0.02em;
+		}
+		.card__desc {
+			margin: 0.4em 0 0;
+			font-size: 0.95rem;
+			font-weight: 300;
+			line-height: 1.5;
+			color: rgb(var(--gray-dark));
+		}
+		@media (max-width: 720px) {
+			.latest__body {
+				grid-template-columns: 1fr;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			.grid {
+				grid-template-columns: 1fr;
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+			.separator {
+				border-top-width: 1.5px;
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
+		}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="container">
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+			{
+				latest && (
+					<a class="latest" href={`/blog/${latest.id}/`}>
+						<div class="latest__header">
+							<p class="latest__date">
+								<FormattedDate date={latest.data.pubDate} />
+							</p>
+							<h2 class="latest__title">{latest.data.title}</h2>
+						</div>
+						<div class="latest__body">
+							<div class="latest__text">
+								{latest.data.description && (
+									<p class="latest__desc">
+										{latest.data.description}
 									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+								)}
+							</div>
+							<div class="latest__image">
+								{latest.data.heroImage ? (
+									<Image
+										width={800}
+										height={600}
+										src={latest.data.heroImage}
+										alt={latest.data.title}
+									/>
+								) : (
+									<Image
+										width={800}
+										height={600}
+										src={placeholderImage}
+										alt={latest.data.title}
+									/>
+								)}
+							</div>
+						</div>
+					</a>
+				)
+			}
+			<hr class="separator" />
+			<ul class="grid">
+				{
+					rest.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<div class="card__image">
+									{post.data.heroImage ? (
+										<Image
+											width={700}
+											height={440}
+											src={post.data.heroImage}
+											alt={post.data.title}
+										/>
+									) : (
+										<Image
+											width={700}
+											height={440}
+											src={placeholderImage}
+											alt={post.data.title}
+										/>
+									)}
+								</div>
+							<h3 class="card__title">{post.data.title}</h3>
+							{post.data.description && (
+								<p class="card__desc">{post.data.description}</p>
+							)}
+							<p class="card__date">
+								<FormattedDate date={post.data.pubDate} />
+							</p>
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</main>
 		<Footer />
 	</body>

@@ -1,10 +1,17 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { Image } from 'astro:assets';
-import AboutImage from '../assets/blog-placeholder-about.jpg';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import AboutImage from "../assets/blog-placeholder-about.jpg";
+import placeholderImage from "../assets/blog-placeholder-1.jpg";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const latestPost = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+)[0];
 ---
 
 <!doctype html>
@@ -17,26 +24,149 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<main class="container">
 			<section class="about">
 				<div class="about__image">
-					<Image src={AboutImage} alt="About" width={600} height={600} />
+					<Image src="/me.jpg" alt="About" width={600} height={600} />
 				</div>
 				<div class="about__content">
-					<h1>About</h1>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-						incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						Merak ettiğim şeylerin peşini bırakmayı pek sevmem. Bir
+						fikrim varsa denerim, çalışmazsa kurcalarım, gerekirse
+						baştan yaparım.
 					</p>
 					<p>
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-						fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-						culpa qui officia deserunt mollit anim id est laborum.
+						Yazılım geliştiriyor, yeni şeyler öğreniyor ve sürekli
+						bir şeyler üretmeye çalışıyorum. Bunun dışında bisiklete
+						binmek, yeni yerler keşfetmek, oyunlarla ilgilenmek ve
+						bazen hiçbir şey yapmadan kafamı dinlemek hoşuma
+						gidiyor.
 					</p>
 					<p>
-						Learn more <a href="/about">about me</a> or read my latest posts in the
-						<a href="/blog">blog</a>.
+						Bu blog; öğrendiklerimin, ürettiklerimin ve yol boyunca
+						karşılaştığım şeylerin küçük bir arşivi.
+					</p>
+
+					<p>
+						<b
+							>Şu sıralar neler yaptığımı merak ediyorsanız, bloga
+							göz atabilirsiniz.
+						</b>Bir şey hakkında konuşmak ya da sadece selam vermek
+						isterseniz, <a href="/contact">bana ulaşabilirsiniz.</a>
 					</p>
 				</div>
 			</section>
+
+			<section class="panels">
+				<div class="panel">
+					<h2>Neler Yapıyorum</h2>
+					<div class="cards">
+						<div class="card">
+							<h3>Ürün Geliştirme</h3>
+							<p>
+								Fikirden ürüne; araştırma, prototipleme ve
+								lansman süreçlerini uyguluyorum.
+							</p>
+						</div>
+						<div class="card">
+							<h3>Yazılım</h3>
+							<p>
+								Web ve mobil tarafında modern araçlarla uygulama
+								geliştiriyorum.
+							</p>
+						</div>
+						<div class="card">
+							<h3>İçerik Üretimi</h3>
+							<p>
+								Öğrendiklerimi yazılar ve notlarla paylaşıyorum.
+							</p>
+						</div>
+						<div class="card">
+							<h3>Sürekli Öğrenme</h3>
+							<p>
+								Yeni teknolojileri deneyerek kendimi
+								geliştiriyorum.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel">
+					<h2>Faydalı Linkler</h2>
+					<ul class="links">
+						<li>
+							<a
+								href="https://astro.build/"
+								target="_blank"
+								rel="noopener">Astro</a
+							>
+						</li>
+						<li>
+							<a
+								href="https://docs.astro.build/"
+								target="_blank"
+								rel="noopener">Astro Dokümantasyon</a
+							>
+						</li>
+						<li>
+							<a
+								href="https://developer.mozilla.org/"
+								target="_blank"
+								rel="noopener">MDN Web Docs</a
+							>
+						</li>
+						<li>
+							<a
+								href="https://github.com/"
+								target="_blank"
+								rel="noopener">GitHub</a
+							>
+						</li>
+						<li>
+							<a
+								href="https://fonts.google.com/"
+								target="_blank"
+								rel="noopener">Google Fonts</a
+							>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+		{
+			latestPost && (
+				<section class="latest">
+					<a class="latest__card" href={`/blog/${latestPost.id}/`}>
+						<div class="latest__body">
+							<p class="latest__date">
+								<FormattedDate date={latestPost.data.pubDate} />
+							</p>
+							<h3 class="latest__title">{latestPost.data.title}</h3>
+							{latestPost.data.description && (
+								<p class="latest__desc">
+									{latestPost.data.description}
+								</p>
+							)}
+							<span class="latest__more">Devamını oku →</span>
+						</div>
+						<div class="latest__image">
+							{latestPost.data.heroImage ? (
+								<Image
+									width={800}
+									height={600}
+									src={latestPost.data.heroImage}
+									alt={latestPost.data.title}
+								/>
+							) : (
+								<Image
+									width={800}
+									height={600}
+									src={placeholderImage}
+									alt={latestPost.data.title}
+								/>
+							)}
+						</div>
+					</a>
+				</section>
+			)
+		}
 		</main>
 		<Footer />
 	</body>
@@ -62,10 +192,159 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		margin-top: 0;
 	}
 
+	.panels {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5em;
+		margin-top: 4em;
+	}
+
+	.panel h2 {
+		margin-top: 0;
+		margin-bottom: 1.2em;
+		font-size: 1.6em;
+		color: rgb(var(--black));
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.2em;
+	}
+
+	.card {
+		padding: 1.2em;
+		background: rgb(var(--gray-light));
+		border-radius: 12px;
+		border: 1px solid rgb(var(--gray-light));
+	}
+
+	.card h3 {
+		margin: 0 0 0.4em;
+		font-size: 1.05em;
+		color: rgb(var(--black));
+	}
+
+	.card p {
+		margin: 0;
+		font-size: 0.9em;
+		font-weight: 300;
+		line-height: 1.5;
+		color: rgb(var(--gray-dark));
+	}
+
+	.links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.links li {
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.links a {
+		display: block;
+		padding: 0.8em 0;
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		font-weight: 300;
+		opacity: 0.85;
+		transition:
+			opacity 0.2s ease,
+			color 0.2s ease,
+			padding-left 0.2s ease;
+	}
+
+	.links a:hover {
+		color: var(--accent);
+		opacity: 1;
+		padding-left: 0.4em;
+	}
+
+	.latest {
+		margin-top: 4em;
+	}
+
+	.latest__card {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5em;
+		align-items: stretch;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.latest__card:hover {
+		border-color: rgb(var(--gray));
+		box-shadow: var(--box-shadow);
+	}
+
+	.latest__body {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.5em;
+	}
+
+	.latest__image {
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+	}
+
+	.latest__image :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.latest__card:hover .latest__image :global(img) {
+		transform: scale(1.02);
+	}
+
+	.latest__date {
+		margin: 0;
+		font-size: 0.85em;
+		color: rgb(var(--gray));
+	}
+
+	.latest__title {
+		margin: 0;
+		font-size: 1.6em;
+		color: rgb(var(--black));
+		line-height: 1.2;
+		font-family: var(--font-display);
+	}
+
+	.latest__desc {
+		margin: 0;
+		font-weight: 300;
+		line-height: 1.6;
+		color: rgb(var(--gray-dark));
+	}
+
+	.latest__more {
+		color: var(--accent);
+		font-weight: 500;
+	}
+
 	@media (max-width: 720px) {
 		.about {
 			grid-template-columns: 1fr;
 			gap: 1.5em;
+		}
+		.panels {
+			grid-template-columns: 1fr;
+			gap: 3em;
+		}
+		.latest__card {
+			grid-template-columns: 1fr;
+			gap: 1.2em;
 		}
 	}
 </style>
