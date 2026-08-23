@@ -7,6 +7,7 @@ import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import { Image } from "astro:assets";
 import placeholderImage from "../../assets/blog-placeholder-1.jpg";
+import me from "../../assets/blog-placeholder-about.jpg";
 
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -20,51 +21,96 @@ const [latest, ...rest] = posts;
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			.latest {
+			.blog-header {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 2.5em;
+				align-items: center;
+				padding: 3em 0 2em;
+				border-bottom: 1px solid rgb(var(--black), 10%);
+				margin-bottom: 2.5em;
+			}
+
+			.blog-header__image {
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+				overflow: hidden;
+			}
+
+			.blog-header__image :global(img) {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
 				display: block;
+			}
+
+			.blog-header__text h1 {
+				margin: 0 0 0.4em;
+				font-size: 2.441em;
+			}
+
+			.blog-header__text p {
+				margin: 0;
+				font-weight: 300;
+				line-height: 1.6;
+				color: rgb(var(--gray));
+				font-size: 1.1em;
+			}
+
+			.latest {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2.5em;
+				align-items: stretch;
 				text-decoration: none;
 				color: inherit;
-				margin-bottom: 2em;
+				margin-bottom: 2.5em;
+				padding: 2em;
+				background: rgb(var(--gray-light));
+				border-radius: 16px;
+				transition: box-shadow 0.2s ease;
 			}
-		.latest__header {
-			margin-bottom: 1em;
-			text-align: center;
-		}
-		.latest__date {
-			margin: 0 0 0.5em;
-			font-size: 0.85rem;
-			color: rgb(var(--gray));
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			font-weight: 300;
-		}
-		.latest__title {
-			margin: 0;
-			font-size: 2.441rem;
-			color: rgb(var(--black));
-			line-height: 1.15;
-			font-family: var(--font-display);
-		}
-		.latest__body {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 2em;
-			align-items: stretch;
-		}
-		.latest__text {
-			align-self: start;
-		}
+
+			.latest:hover {
+				box-shadow: var(--box-shadow);
+			}
+
+			.latest__header {
+				margin-bottom: 1em;
+			}
+
+			.latest__date {
+				margin: 0 0 0.5em;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-weight: 300;
+			}
+
+			.latest__title {
+				margin: 0;
+				font-size: 2rem;
+				color: rgb(var(--black));
+				line-height: 1.2;
+				font-family: var(--font-display);
+			}
+
 			.latest__desc {
 				margin: 0;
 				font-weight: 300;
 				line-height: 1.6;
 				color: rgb(var(--gray-dark));
-				font-size: 1.35rem;
+				font-size: 1.1rem;
 			}
-		.latest__image {
-			aspect-ratio: 3 / 2;
-			overflow: hidden;
-		}
+
+			.latest__image {
+				aspect-ratio: 3 / 2;
+				overflow: hidden;
+				border-radius: 12px;
+			}
+
 			.latest__image :global(img) {
 				width: 100%;
 				height: 100%;
@@ -72,40 +118,48 @@ const [latest, ...rest] = posts;
 				display: block;
 				transition: transform 0.3s ease;
 			}
+
 			.latest:hover .latest__image :global(img) {
 				transform: scale(1.02);
 			}
-		.separator {
-			border: none;
-			border-top: 10px solid rgb(var(--black));
-			margin: 2.5em 0;
-		}
+
+			.section-title {
+				font-size: 1.1rem;
+				font-weight: 600;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: rgb(var(--gray));
+				margin: 0 0 1.5em;
+			}
+
 			.grid {
 				list-style: none;
 				margin: 0;
 				padding: 0;
 				display: grid;
-				grid-template-columns: repeat(5, 1fr);
-				gap: 1.5em;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2em;
 			}
+
 			.grid li {
 				border-top: 1px solid rgb(var(--black), 10%);
+				padding-top: 1.2em;
 			}
-			.grid li:first-child,
-			.grid li:nth-child(2) {
-				border-top: none;
-			}
+
 			.grid li a {
 				display: block;
 				text-decoration: none;
 				color: inherit;
 			}
+
 			.card__image {
 				width: 100%;
 				aspect-ratio: 16 / 10;
 				overflow: hidden;
-				margin-bottom: 0.8em;
+				border-radius: 10px;
+				margin-bottom: 1em;
 			}
+
 			.card__image :global(img) {
 				width: 100%;
 				height: 100%;
@@ -113,9 +167,11 @@ const [latest, ...rest] = posts;
 				display: block;
 				transition: transform 0.3s ease;
 			}
+
 			.grid li a:hover .card__image :global(img) {
 				transform: scale(1.03);
 			}
+
 			.card__title {
 				margin: 0;
 				font-size: 1.25rem;
@@ -123,75 +179,97 @@ const [latest, ...rest] = posts;
 				line-height: 1.3;
 				font-family: var(--font-display);
 			}
-		.card__date {
-			margin: 0.4em 0 0;
-			color: rgb(var(--gray));
-			font-size: 0.85rem;
-			font-weight: 300;
-			letter-spacing: 0.02em;
-		}
-		.card__desc {
-			margin: 0.4em 0 0;
-			font-size: 0.95rem;
-			font-weight: 300;
-			line-height: 1.5;
-			color: rgb(var(--gray-dark));
-		}
-		@media (max-width: 720px) {
-			.latest__body {
-				grid-template-columns: 1fr;
+
+			.card__date {
+				margin: 0.4em 0 0;
+				color: rgb(var(--gray));
+				font-size: 0.85rem;
+				font-weight: 300;
+				letter-spacing: 0.02em;
 			}
-			.grid {
-				grid-template-columns: 1fr;
+
+			.card__desc {
+				margin: 0.5em 0 0;
+				font-size: 0.95rem;
+				font-weight: 300;
+				line-height: 1.5;
+				color: rgb(var(--gray-dark));
 			}
-			.separator {
-				border-top-width: 1.5px;
+
+			@media (max-width: 720px) {
+				.blog-header {
+					grid-template-columns: 1fr;
+					text-align: center;
+					gap: 1.5em;
+				}
+
+				.blog-header__image {
+					margin-inline: auto;
+				}
+
+				.latest {
+					grid-template-columns: 1fr;
+					padding: 1.5em;
+				}
+
+				.grid {
+					grid-template-columns: 1fr;
+				}
 			}
-		}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="container">
+			<div class="blog-header">
+				<div class="blog-header__image">
+					<Image src={me} alt="Yasin Elbüz" width={240} height={240} />
+				</div>
+				<div class="blog-header__text">
+					<h1>Yazılar</h1>
+					<p>
+						Öğrendiklerimi, ürettiklerimi ve yol boyunca karşılaştığım
+						şeylerin küçük bir arşivi.
+					</p>
+				</div>
+			</div>
+
 			{
 				latest && (
 					<a class="latest" href={`/blog/${latest.id}/`}>
-						<div class="latest__header">
-							<p class="latest__date">
-								<FormattedDate date={latest.data.pubDate} />
-							</p>
-							<h2 class="latest__title">{latest.data.title}</h2>
+						<div>
+							<div class="latest__header">
+								<p class="latest__date">
+									<FormattedDate date={latest.data.pubDate} />
+								</p>
+								<h2 class="latest__title">{latest.data.title}</h2>
+							</div>
+							{latest.data.description && (
+								<p class="latest__desc">{latest.data.description}</p>
+							)}
 						</div>
-						<div class="latest__body">
-							<div class="latest__text">
-								{latest.data.description && (
-									<p class="latest__desc">
-										{latest.data.description}
-									</p>
-								)}
-							</div>
-							<div class="latest__image">
-								{latest.data.heroImage ? (
-									<Image
-										width={800}
-										height={600}
-										src={latest.data.heroImage}
-										alt={latest.data.title}
-									/>
-								) : (
-									<Image
-										width={800}
-										height={600}
-										src={placeholderImage}
-										alt={latest.data.title}
-									/>
-								)}
-							</div>
+						<div class="latest__image">
+							{latest.data.heroImage ? (
+								<Image
+									width={800}
+									height={600}
+									src={latest.data.heroImage}
+									alt={latest.data.title}
+								/>
+							) : (
+								<Image
+									width={800}
+									height={600}
+									src={placeholderImage}
+									alt={latest.data.title}
+								/>
+							)}
 						</div>
 					</a>
 				)
 			}
-			<hr class="separator" />
+
+			<p class="section-title">Tüm Yazılar</p>
 			<ul class="grid">
 				{
 					rest.map((post) => (
@@ -214,13 +292,13 @@ const [latest, ...rest] = posts;
 										/>
 									)}
 								</div>
-							<h3 class="card__title">{post.data.title}</h3>
-							{post.data.description && (
-								<p class="card__desc">{post.data.description}</p>
-							)}
-							<p class="card__date">
-								<FormattedDate date={post.data.pubDate} />
-							</p>
+								<h3 class="card__title">{post.data.title}</h3>
+								{post.data.description && (
+									<p class="card__desc">{post.data.description}</p>
+								)}
+								<p class="card__date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
 							</a>
 						</li>
 					))
