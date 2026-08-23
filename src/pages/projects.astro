@@ -1,0 +1,458 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE } from "../consts";
+
+	const projects = [
+	{
+		title: "Brand Identity Design",
+		description:
+			"Complete brand identity system including logo, typography, color palette, and visual guidelines for a modern tech startup.",
+		images: ["/1.avif", "/2.avif", "/3.avif"],
+		link: "https://example.com",
+	},
+	{
+		title: "E-Commerce Platform",
+		description:
+			"Full-stack web application with payment integration, inventory management, and responsive design for a retail brand.",
+		images: ["/2.avif", "/manav.png", "/me.jpg"],
+		link: "https://example.com",
+	},
+	{
+		title: "Mobile App Experience",
+		description:
+			"Native iOS and Android application with intuitive UI/UX, real-time notifications, and seamless cross-platform sync.",
+		images: ["/3.avif", "/1.avif"],
+		link: "https://example.com",
+	},
+	{
+		title: "Interactive Dashboard",
+		description:
+			"Data visualization dashboard with real-time analytics, custom reports, and interactive charts for business intelligence.",
+		images: ["/manav.png", "/me.jpg", "/2.avif"],
+		link: "https://example.com",
+	},
+	{
+		title: "Creative Campaign",
+		description:
+			"Multi-platform marketing campaign with motion graphics, social media assets, and engaging storytelling for a lifestyle brand.",
+		images: ["/me.jpg", "/3.avif"],
+		link: "https://example.com",
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Projeler | ${SITE_TITLE}`} description="Projeler" />
+	</head>
+	<body>
+		<Header />
+		<main class="projects-page">
+			<div class="container">
+				<header class="projects-header">
+					<h1>İşler-Güçler</h1>
+					<p>
+						Üzerinde çalıştığım projeler, geliştirdiğim fikirler ve
+						zaman içinde ortaya çıkardığım işler.
+					</p>
+				</header>
+
+				<div class="projects-grid">
+					{
+						projects.map((project) => (
+							<article class="project-card">
+								<button
+									type="button"
+									class="project-card__image"
+									data-images={project.images.join("|")}
+									data-title={project.title}
+									data-desc={project.description}
+								>
+									<img
+										src={project.images[0]}
+										alt={project.title}
+										loading="lazy"
+									/>
+								</button>
+								<div class="project-card__body">
+									<h2>{project.title}</h2>
+									<p>{project.description}</p>
+									{
+										project.link && (
+											<a
+												class="project-card__link"
+												href={project.link}
+												target="_blank"
+												rel="noopener"
+											>
+												<svg
+													class="project-card__link-icon"
+													viewBox="0 0 24 24"
+													aria-hidden="true"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path
+														d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+													/>
+													<polyline points="15 3 21 3 21 9" />
+													<line x1="10" y1="14" x2="21" y2="3" />
+												</svg>
+												Web Sitesi
+											</a>
+										)
+									}
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+
+			<div
+				class="lightbox"
+				id="lightbox"
+				aria-hidden="true"
+				role="dialog"
+				aria-modal="true"
+			>
+				<button
+					type="button"
+					class="lightbox__close"
+					id="lightbox-close"
+					aria-label="Kapat">×</button
+				>
+				<button
+					type="button"
+					class="lightbox__nav lightbox__nav--prev"
+					id="lightbox-prev"
+					aria-label="Önceki">‹</button
+				>
+				<figure class="lightbox__figure">
+					<img id="lightbox-img" src="" alt="" />
+					<figcaption id="lightbox-caption"></figcaption>
+					<div class="lightbox__counter" id="lightbox-counter"></div>
+				</figure>
+				<button
+					type="button"
+					class="lightbox__nav lightbox__nav--next"
+					id="lightbox-next"
+					aria-label="Sonraki">›</button
+				>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.projects-page {
+		background: #fff;
+		color: rgb(var(--gray-dark));
+		min-height: 100vh;
+		padding-block: 3em;
+	}
+
+	.projects-header {
+		text-align: center;
+		padding: 2em 0 3em;
+		max-width: 700px;
+		margin-inline: auto;
+	}
+
+	.projects-header h1 {
+		font-size: 3.052em;
+		color: rgb(var(--black));
+		margin-bottom: 0.5em;
+	}
+
+	.projects-header p {
+		font-size: 1.2em;
+		font-weight: 300;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5em;
+		padding-bottom: 4em;
+	}
+
+	.project-card {
+		transition: transform 0.3s ease;
+	}
+
+	.project-card:hover {
+		transform: translateY(-4px);
+	}
+
+	.project-card__image {
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		position: relative;
+		aspect-ratio: 3 / 2;
+		overflow: hidden;
+		border-radius: 12px;
+	}
+
+	.unused {
+	}
+
+	.project-card__image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.4s ease;
+	}
+
+	.project-card:hover .project-card__image img {
+		transform: scale(1.03);
+	}
+
+	.project-card__image::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(var(--black), 0);
+		background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23ffffff'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='11'%20cy='11'%20r='7'/%3E%3Cline%20x1='21'%20y1='21'%20x2='16.65'%20y2='16.65'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 40px 40px;
+		opacity: 0;
+		transition:
+			opacity 0.25s ease,
+			background-color 0.25s ease;
+		pointer-events: none;
+	}
+
+	.project-card__image:hover::after,
+	.project-card__image:focus-visible::after {
+		opacity: 1;
+		background-color: rgba(var(--black), 35%);
+	}
+
+	.project-card__body {
+		padding: 1em 0 0;
+	}
+
+	.project-card__body h2 {
+		font-size: 1.3em;
+		color: rgb(var(--black));
+		margin-bottom: 0.4em;
+		font-family: var(--font-display);
+	}
+
+	.project-card__body p {
+		font-size: 0.95em;
+		font-weight: 300;
+		line-height: 1.6;
+		color: rgb(var(--gray-dark));
+		margin: 0;
+	}
+
+	.project-card__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		margin-top: 0.9em;
+		font-size: 0.9em;
+		font-weight: 500;
+		color: var(--accent);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.project-card__link:hover {
+		color: var(--accent-dark);
+		text-decoration: underline;
+	}
+
+	.project-card__link-icon {
+		width: 1em;
+		height: 1em;
+		display: block;
+	}
+
+	@media (max-width: 720px) {
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.projects-header {
+			padding: 1em 0 2em;
+		}
+	}
+
+	.lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		background: rgba(var(--black), 88%);
+		padding: 2em;
+	}
+
+	.lightbox.is-open {
+		display: flex;
+	}
+
+	.lightbox__figure {
+		margin: 0;
+		max-width: 80vw;
+		max-height: 80vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1em;
+	}
+
+	.lightbox__figure img {
+		max-width: 80vw;
+		max-height: 70vh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		border-radius: 12px;
+		box-shadow: 0 16px 48px rgba(0, 0, 0, 40%);
+	}
+
+	.lightbox__caption {
+		color: #fff;
+		font-size: 0.95em;
+		font-weight: 300;
+		text-align: center;
+	}
+
+	.lightbox__counter {
+		color: rgba(255, 255, 255, 75%);
+		font-size: 0.85em;
+	}
+
+	.lightbox__close,
+	.lightbox__nav {
+		position: absolute;
+		border: none;
+		background: rgba(255, 255, 255, 12%);
+		color: #fff;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		transition: background 0.2s ease;
+	}
+
+	.lightbox__close:hover,
+	.lightbox__nav:hover {
+		background: rgba(255, 255, 255, 28%);
+	}
+
+	.lightbox__close {
+		top: 1.5em;
+		right: 1.5em;
+		width: 44px;
+		height: 44px;
+		font-size: 1.8em;
+		line-height: 1;
+	}
+
+	.lightbox__nav {
+		top: 50%;
+		transform: translateY(-50%);
+		width: 52px;
+		height: 52px;
+		font-size: 2.2em;
+		line-height: 1;
+	}
+
+	.lightbox__nav--prev {
+		left: 1.5em;
+	}
+
+	.lightbox__nav--next {
+		right: 1.5em;
+	}
+</style>
+
+<script>
+	const cards = Array.from(
+		document.querySelectorAll<HTMLElement>(".project-card__image"),
+	);
+	const lightbox = document.getElementById("lightbox") as HTMLElement;
+	const lightboxImg = document.getElementById(
+		"lightbox-img",
+	) as HTMLImageElement;
+	const lightboxCaption = document.getElementById(
+		"lightbox-caption",
+	) as HTMLElement;
+	const lightboxCounter = document.getElementById(
+		"lightbox-counter",
+	) as HTMLElement;
+	const closeBtn = document.getElementById("lightbox-close");
+	const prevBtn = document.getElementById("lightbox-prev");
+	const nextBtn = document.getElementById("lightbox-next");
+
+	let images: string[] = [];
+	let current = 0;
+
+	function show(i: number) {
+		if (images.length === 0) return;
+		current = (i + images.length) % images.length;
+		lightboxImg.src = images[current];
+		lightboxCounter.textContent = `${current + 1} / ${images.length}`;
+
+		const single = images.length <= 1;
+		if (prevBtn) prevBtn.style.display = single ? "none" : "";
+		if (nextBtn) nextBtn.style.display = single ? "none" : "";
+	}
+
+	function open(btn: HTMLElement) {
+		images = (btn.dataset.images ?? "").split("|").filter(Boolean);
+		lightboxCaption.textContent =
+			(btn.dataset.title ?? "") +
+			(btn.dataset.desc ? " — " + btn.dataset.desc : "");
+		show(0);
+		lightbox.classList.add("is-open");
+		lightbox.setAttribute("aria-hidden", "false");
+	}
+
+	function close() {
+		lightbox.classList.remove("is-open");
+		lightbox.setAttribute("aria-hidden", "true");
+	}
+
+	cards.forEach((btn) => btn.addEventListener("click", () => open(btn)));
+
+	closeBtn?.addEventListener("click", close);
+	prevBtn?.addEventListener("click", () => show(current - 1));
+	nextBtn?.addEventListener("click", () => show(current + 1));
+	lightbox?.addEventListener("click", (e) => {
+		if (e.target === lightbox) close();
+	});
+
+	document.addEventListener("keydown", (e) => {
+		if (!lightbox?.classList.contains("is-open")) return;
+		if (e.key === "Escape") close();
+		if (e.key === "ArrowLeft") show(current - 1);
+		if (e.key === "ArrowRight") show(current + 1);
+	});
+</script>

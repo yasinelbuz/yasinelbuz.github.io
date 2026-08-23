@@ -172,3 +172,48 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+/* ---- Page transitions (View Transitions API) ---- */
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root) {
+	animation: page-fade-out 0.3s ease both;
+}
+
+::view-transition-new(root) {
+	animation: page-fade-in 0.45s ease both;
+}
+
+@keyframes page-fade-out {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-12px);
+	}
+}
+
+@keyframes page-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}

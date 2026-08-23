@@ -23,10 +23,8 @@ const latestPost = (await getCollection("blog")).sort(
 		<Header />
 		<main class="container">
 			<section class="about">
-				<div class="about__image">
-					<Image src="/me.jpg" alt="About" width={600} height={600} />
-				</div>
 				<div class="about__content">
+					<h3>Hakkımda</h3>
 					<p>
 						Merak ettiğim şeylerin peşini bırakmayı pek sevmem. Bir
 						fikrim varsa denerim, çalışmazsa kurcalarım, gerekirse
@@ -49,7 +47,7 @@ const latestPost = (await getCollection("blog")).sort(
 							>Şu sıralar neler yaptığımı merak ediyorsanız, bloga
 							göz atabilirsiniz.
 						</b>Bir şey hakkında konuşmak ya da sadece selam vermek
-						isterseniz, <a href="/contact">bana ulaşabilirsiniz.</a>
+						isterseniz, <a href="mailto:yasinelbuz@gmail.com">bana ulaşabilirsiniz.</a>
 					</p>
 				</div>
 			</section>
@@ -130,43 +128,50 @@ const latestPost = (await getCollection("blog")).sort(
 				</div>
 			</section>
 
-		{
-			latestPost && (
-				<section class="latest">
-					<a class="latest__card" href={`/blog/${latestPost.id}/`}>
-						<div class="latest__body">
-							<p class="latest__date">
-								<FormattedDate date={latestPost.data.pubDate} />
-							</p>
-							<h3 class="latest__title">{latestPost.data.title}</h3>
-							{latestPost.data.description && (
-								<p class="latest__desc">
-									{latestPost.data.description}
+			{
+				latestPost && (
+					<section class="latest">
+						<a
+							class="latest__card"
+							href={`/blog/${latestPost.id}/`}
+						>
+							<div class="latest__body">
+								<p class="latest__date">
+									<FormattedDate
+										date={latestPost.data.pubDate}
+									/>
 								</p>
-							)}
-							<span class="latest__more">Devamını oku →</span>
-						</div>
-						<div class="latest__image">
-							{latestPost.data.heroImage ? (
-								<Image
-									width={800}
-									height={600}
-									src={latestPost.data.heroImage}
-									alt={latestPost.data.title}
-								/>
-							) : (
-								<Image
-									width={800}
-									height={600}
-									src={placeholderImage}
-									alt={latestPost.data.title}
-								/>
-							)}
-						</div>
-					</a>
-				</section>
-			)
-		}
+								<h3 class="latest__title">
+									{latestPost.data.title}
+								</h3>
+								{latestPost.data.description && (
+									<p class="latest__desc">
+										{latestPost.data.description}
+									</p>
+								)}
+								<span class="latest__more">Devamını oku →</span>
+							</div>
+							<div class="latest__image">
+								{latestPost.data.heroImage ? (
+									<Image
+										width={800}
+										height={600}
+										src={latestPost.data.heroImage}
+										alt={latestPost.data.title}
+									/>
+								) : (
+									<Image
+										width={800}
+										height={600}
+										src={placeholderImage}
+										alt={latestPost.data.title}
+									/>
+								)}
+							</div>
+						</a>
+					</section>
+				)
+			}
 		</main>
 		<Footer />
 	</body>
@@ -175,7 +180,7 @@ const latestPost = (await getCollection("blog")).sort(
 <style>
 	.about {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 0fr;
 		gap: 2.5em;
 		align-items: start;
 	}

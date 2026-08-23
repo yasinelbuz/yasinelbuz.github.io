@@ -1,63 +1,276 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE } from "../consts";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead
+			title={`Hakkımda | ${SITE_TITLE}`}
+			description="Üreten bir geliştirici: Yasin."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main class="about-page">
+			<section class="about-hero">
+				<div class="container about-hero__inner">
+					<div class="about-hero__photo">
+						<img src="/me.jpg" alt="Yasin Elbüz" />
+					</div>
+					<div class="about-hero__intro">
+						<span class="about-eyebrow">Hakkında</span>
+						<h1>Yasin Elbüz</h1>
+						<p>
+							Üreten bir geliştirici. Web, mobil ve ürün geliştirme
+							üzerine çalışıyor; bir fikri mümkün olduğunca hayata
+							geçirmeyi seviyorum.
+						</p>
+						<div class="about-actions">
+							<a
+								class="btn-primary"
+								href="mailto:yasinelbuz@gmail.com">İletişim</a
+							>
+							<a class="btn-secondary" href="/projects">Projeler</a>
+						</div>
+					</div>
+				</div>
+			</section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			<section class="about-details container">
+				<div class="about-details__text">
+					<h2>Hakkımda</h2>
+					<p>
+						Bir fikri sadece konuşmak yerine ürüne dönüştürmeyi
+						seviyorum. Web ve mobil tarafında React, React Native ve
+						TypeScript ile çalışırken; ara sıra küçük oyunlar ve
+						ürün fikirleri de geliştiriyorum.
+					</p>
+					<p>
+						Uzun vadede kendi yazılım şirketimi kurmayı
+						hedefliyorum. Bu blog, o yolculuğun küçük bir arşivi.
+					</p>
+				</div>
+				<ul class="about-info">
+					<li>
+						<span>Konum</span>
+						<strong>İstanbul, Türkiye</strong>
+					</li>
+					<li>
+						<span>Odak</span>
+						<strong>Web · Mobil · Ürün</strong>
+					</li>
+					<li>
+						<span>Araçlar</span>
+						<strong>React · React Native · TypeScript</strong>
+					</li>
+					<li>
+						<span>Hedef</span>
+						<strong>Kendi yazılım şirketim</strong>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+<style>
+	.about-page {
+		background: #fff;
+		color: rgb(var(--gray-dark));
+	}
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+	/* ---- Hero ---- */
+	.about-hero {
+		background: rgb(var(--gray-light));
+		padding-block: 4em;
+		border-bottom: 1px solid rgb(var(--black), 8%);
+	}
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+	.about-hero__inner {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2em;
+		max-width: 900px;
+		margin-inline: auto;
+	}
+
+	.about-hero__photo {
+		width: min(280px, 70vw);
+		aspect-ratio: 1 / 1;
+		border-radius: 20px;
+		overflow: hidden;
+		box-shadow: var(--box-shadow);
+		margin-inline: auto;
+	}
+
+	.about-hero__photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.about-eyebrow {
+		display: inline-block;
+		font-size: 0.78em;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--accent);
+		margin-bottom: 0.6em;
+	}
+
+	.about-hero__intro {
+		text-align: center;
+	}
+
+	.about-hero__intro h1 {
+		font-size: 3em;
+		margin: 0 0 0.4em;
+		line-height: 1.05;
+		color: rgb(var(--black));
+	}
+
+	.about-hero__intro p {
+		font-size: 1.15em;
+		font-weight: 300;
+		line-height: 1.7;
+		margin: 0 0 1.5em;
+		max-width: 46ch;
+		color: rgb(var(--gray-dark));
+	}
+
+	.about-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.9em;
+	}
+
+	.about-actions a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.7em 1.6em;
+		border-radius: 999px;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 0.95em;
+		transition:
+			transform 0.2s ease,
+			background 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.btn-primary {
+		background: var(--accent);
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: var(--accent-dark);
+		transform: translateY(-2px);
+	}
+
+	.btn-secondary {
+		background: transparent;
+		color: rgb(var(--gray-dark));
+		border: 1px solid rgb(var(--gray-light));
+	}
+
+	.btn-secondary:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	/* ---- Details ---- */
+	.about-details {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3em;
+		max-width: 900px;
+		margin: 4em auto;
+		align-items: start;
+	}
+
+	.about-details__text h2 {
+		font-size: 1.8em;
+		margin: 0 0 0.8em;
+		color: rgb(var(--black));
+	}
+
+	.about-details__text p {
+		font-size: 1.02em;
+		font-weight: 300;
+		line-height: 1.8;
+		margin: 0 0 1.1em;
+		color: rgb(var(--gray-dark));
+	}
+
+	.about-info {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.about-info li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1em;
+		padding: 1.1em 0;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+
+	.about-info li:last-child {
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.about-info span {
+		font-size: 0.74em;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgb(var(--gray));
+	}
+
+	.about-info strong {
+		font-weight: 500;
+		color: rgb(var(--black));
+		text-align: right;
+	}
+
+	/* ---- Responsive ---- */
+	@media (max-width: 720px) {
+		.about-hero__inner {
+			grid-template-columns: 1fr;
+			gap: 2em;
+			text-align: center;
+			justify-items: center;
+		}
+
+		.about-hero__photo {
+			width: min(300px, 80vw);
+		}
+
+		.about-hero__intro p {
+			margin-inline: auto;
+		}
+
+		.about-actions {
+			justify-content: center;
+		}
+
+		.about-details {
+			grid-template-columns: 1fr;
+			gap: 2.5em;
+		}
+	}
+</style>
