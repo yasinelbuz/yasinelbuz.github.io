@@ -67,13 +67,8 @@ const [latest, ...rest] = posts;
 				color: inherit;
 				margin-bottom: 2.5em;
 				padding: 2em;
-				background: rgb(var(--gray-light));
 				border-radius: 16px;
 				transition: box-shadow 0.2s ease;
-			}
-
-			.latest:hover {
-				box-shadow: var(--box-shadow);
 			}
 
 			.latest__header {
@@ -137,7 +132,7 @@ const [latest, ...rest] = posts;
 				margin: 0;
 				padding: 0;
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
+				grid-template-columns: repeat(5, 1fr);
 				gap: 2em;
 			}
 
@@ -154,7 +149,7 @@ const [latest, ...rest] = posts;
 
 			.card__image {
 				width: 100%;
-				aspect-ratio: 16 / 10;
+				aspect-ratio: 16 / 12;
 				overflow: hidden;
 				border-radius: 10px;
 				margin-bottom: 1em;
@@ -216,23 +211,25 @@ const [latest, ...rest] = posts;
 					grid-template-columns: 1fr;
 				}
 			}
+
+			.projects-header {
+				text-align: center;
+				padding: 2em 0 3em;
+				max-width: 700px;
+				margin-inline: auto;
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="container">
-			<div class="blog-header">
-				<div class="blog-header__image">
-					<Image src={me} alt="Yasin Elbüz" width={240} height={240} />
-				</div>
-				<div class="blog-header__text">
-					<h1>Yazılar</h1>
-					<p>
-						Öğrendiklerimi, ürettiklerimi ve yol boyunca karşılaştığım
-						şeylerin küçük bir arşivi.
-					</p>
-				</div>
-			</div>
+			<header class="projects-header">
+				<h1>Notlar</h1>
+				<p>
+					Öğrendiklerimi, ürettiklerimi ve yol boyunca karşılaştığım
+					şeylerin küçük bir arşivi.
+				</p>
+			</header>
 
 			{
 				latest && (
@@ -242,10 +239,14 @@ const [latest, ...rest] = posts;
 								<p class="latest__date">
 									<FormattedDate date={latest.data.pubDate} />
 								</p>
-								<h2 class="latest__title">{latest.data.title}</h2>
+								<h2 class="latest__title">
+									{latest.data.title}
+								</h2>
 							</div>
 							{latest.data.description && (
-								<p class="latest__desc">{latest.data.description}</p>
+								<p class="latest__desc">
+									{latest.data.description}
+								</p>
 							)}
 						</div>
 						<div class="latest__image">
@@ -294,7 +295,9 @@ const [latest, ...rest] = posts;
 								</div>
 								<h3 class="card__title">{post.data.title}</h3>
 								{post.data.description && (
-									<p class="card__desc">{post.data.description}</p>
+									<p class="card__desc">
+										{post.data.description}
+									</p>
 								)}
 								<p class="card__date">
 									<FormattedDate date={post.data.pubDate} />
