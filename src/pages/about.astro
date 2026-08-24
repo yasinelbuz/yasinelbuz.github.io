@@ -20,9 +20,10 @@ import { SITE_TITLE } from "../consts";
 				<header class="about-header">
 					<h1>Hakkımda</h1>
 					<p>
-						Merak ettiğim şeylerin peşini bırakmayı pek sevmem. Bir
-						fikrim varsa denerim, çalışmazsa kurcalarım, gerekirse
-						baştan yaparım.
+						Bir fikri sadece konuşmak yerine ürüne dönüştürmeyi
+						seviyorum. Web ve mobil tarafında JavaScript ekosistemi
+						ile çalışırken; ara sıra küçük oyunlar ve ürün fikirleri
+						de geliştiriyorum.
 					</p>
 				</header>
 
@@ -30,21 +31,34 @@ import { SITE_TITLE } from "../consts";
 					<img src="/me.jpg" alt="Yasin Elbüz" />
 				</div>
 
-				<div class="about-body">
+			<div class="about-body">
 					<p>
-						Yazılım geliştiriyor, yeni şeyler öğreniyor ve sürekli bir
-						şeyler üretmeye çalışıyorum. Bunun dışında bisiklete binmek,
-						yeni yerler keşfetmek, oyunlarla ilgilenmek ve bazen hiçbir
-						şey yapmadan kafamı dinlemek hoşuma gidiyor.
+						İstanbul'da yaşayan, JavaScript ekosistemi ve web teknolojileriyle ilgilenen bir yazılım geliştiricisiyim.
+						Günlerimin büyük bir kısmını yeni şeyler öğrenerek, kendi projelerimi geliştirerek ve zaman zaman açık kaynak projelere katkıda bulunarak geçiriyorum.
+						Bir teknolojiyi sadece kullanmak yerine nasıl çalıştığını anlamayı, farklı şeyler denemeyi ve aklımdaki fikirleri küçük de olsa çalışan projelere dönüştürmeyi seviyorum.
 					</p>
 					<p>
-						Bu blog; öğrendiklerimin, ürettiklerimin ve yol boyunca
-						karşılaştığım şeylerin küçük bir arşivi.
+						<a href="https://github.com/yasinelbuz" target="_blank" rel="noopener">GitHub</a> üzerinde geliştirdiğim projeleri,
+						<a href="/blog">blogumda</a> ise öğrendiklerimi, üzerinde çalıştığım şeyleri ve zaman zaman aklıma takılan konuları paylaşıyorum.
+						Bunların yanında <a href="https://www.youtube.com/@yasinelbuz" target="_blank" rel="noopener">YouTube kanalımda</a> yazılım öğrenme sürecimi, yaptığım projeleri ve ilgimi çeken teknolojileri daha farklı bir formatta paylaşmaya çalışıyorum.
 					</p>
 					<p>
-						Şu sıralar neler yaptığımı merak ediyorsanız, bloga göz
-						atabilirsiniz. Bir şey hakkında konuşmak ya da sadece selam
-						vermek isterseniz, bana ulaşabilirsiniz.
+						<strong>Bahçeşehir Üniversitesi</strong> Bilgisayar ve Öğretim Teknolojileri Eğitimi mezunuyum.
+						Kısa bir dönem öğretmenlik yaptım ve çocuklara JavaScript dersleri verdim.
+						Eğitim geçmişimin, bir konuyu sadece öğrenmekle kalmayıp onu anlaşılır şekilde ifade etmeye çalışmamda hâlâ etkisi olduğunu düşünüyorum.
+					</p>
+					<p>
+						Yazılım dışında yürümeyi, bisiklete binmeyi, gezmeyi ve farklı etkinliklere katılmayı seviyorum.
+						Özellikle yeni yerler görmek ve daha önce tanışmadığım insanlarla sohbet etmek hoşuma gidiyor.
+						Bazen bütün gün bilgisayar başında bir şeyler geliştirdikten sonra çıkıp uzun bir yürüyüş yapmak iyi bir fikir oluyor.
+					</p>
+					<p>
+						Bu blog da biraz bütün bunların bir araya geldiği kişisel bir alan.
+						Öğrendiklerimi, yaptığım projeleri, üzerinde düşündüğüm şeyleri ve zaman içinde değişen fikirlerimi burada biriktiriyorum.
+					</p>
+					<p>
+						Eğer burada yazdığım bir şey hakkında konuşmak, bir proje hakkında fikir alışverişi yapmak ya da sadece merhaba demek isterseniz,
+						<a href="mailto:yasinelbuz@gmail.com">bana ulaşabilirsiniz.</a>
 					</p>
 				</div>
 			</div>
@@ -110,6 +124,21 @@ import { SITE_TITLE } from "../consts";
 		color: rgb(var(--gray-dark));
 	}
 
+	/* Paragraf içindeki linkler — sitenin tipografik stiliyle uyumlu */
+	.about-body a,
+	.flow-content a:not(.about-more a) {
+		color: rgb(var(--black));
+		text-decoration: underline;
+		text-decoration-color: rgba(var(--black), 0.3);
+		text-underline-offset: 3px;
+		transition: text-decoration-color 0.2s ease;
+	}
+
+	.about-body a:hover,
+	.flow-content a:not(.about-more a):hover {
+		text-decoration-color: rgb(var(--black));
+	}
+
 	@media (max-width: 720px) {
 		.about-header {
 			padding: 1em 0 2em;
@@ -124,3 +153,4 @@ import { SITE_TITLE } from "../consts";
 		}
 	}
 </style>
+
