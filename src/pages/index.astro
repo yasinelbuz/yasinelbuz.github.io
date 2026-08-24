@@ -11,146 +11,144 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 const latestPost = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )[0];
+
+const latestProject = {
+	title: "Brand Identity Design",
+	description:
+		"Modern bir teknoloji girişimi için logo, tipografi, renk paleti ve görsel rehber içeren eksiksiz marka kimliği sistemi.",
+	image: "/1.avif",
+	link: "/projects",
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main class="container">
-			<section class="about">
-				<div class="about__content">
-					<h3>Hakkımda</h3>
+			<!-- Hakkımda Section -->
+			<section class="flow-section">
+				<div class="flow-content">
+					<h1>Selam, Ben Yasin 👋</h1>
 					<p>
-						Merak ettiğim şeylerin peşini bırakmayı pek sevmem. Bir
-						fikrim varsa denerim, çalışmazsa kurcalarım, gerekirse
-						baştan yaparım.
+						İstanbul'da yaşayan, <strong>Javascript ekosistemi</strong> ile ilgilenen bir <strong>yazılım geliştiricisiyim</strong>.
+						Günlerim yazılımda bir şeyler öğrenerek, kendi projelerime ve <strong>açık kaynak projelere</strong> katkı sağlayarak geçmektedir.
 					</p>
 					<p>
-						Yazılım geliştiriyor, yeni şeyler öğreniyor ve sürekli
-						bir şeyler üretmeye çalışıyorum. Bunun dışında bisiklete
-						binmek, yeni yerler keşfetmek, oyunlarla ilgilenmek ve
-						bazen hiçbir şey yapmadan kafamı dinlemek hoşuma
-						gidiyor.
+						<strong>Bahçeşehir Üniversitesi Bilgisayar Öğretmenliği</strong> mezunuyum, kısa bir dönem öğretmenlik tecrübem var ve bir dönem çocuklara Javascript dersleri anlatarak onların mantıksal zekasını geliştirmek için dersler anlattım.
 					</p>
 					<p>
-						Bu blog; öğrendiklerimin, ürettiklerimin ve yol boyunca
-						karşılaştığım şeylerin küçük bir arşivi.
+						Gezmeyi, etkinliklere katılmayı ve <strong>yeni insanlar ile tanışmayı</strong> çok seviyorum. Düzenli olarak yaz kış demeden yürüyüşler yapıyorum.
 					</p>
-
 					<p>
-						<b
-							>Şu sıralar neler yaptığımı merak ediyorsanız, bloga
-							göz atabilirsiniz.
-						</b>Bir şey hakkında konuşmak ya da sadece selam vermek
-						isterseniz, <a href="mailto:yasinelbuz@gmail.com">bana ulaşabilirsiniz.</a>
+						Son olarak, web platformlarında bir şeyler tasarlamayı çok seviyorum, gelecekte ise <strong>web platformlarında bir şeyler inşa etmeye</strong> devam edeceğimi düşünüyorum. Eğer benimle tanışmak ve soru sormak isterseniz lütfen çekinmeyin, cevap vereceğimden emin olabilirsiniz.
+					</p>
+					<p>
+						Kendinize çok iyi bakın, görüşmek üzere.
+					</p>
+					<p class="about-more">
+						Daha fazlası için <a href="/about">Hakkımda sayfasına göz atabilirsiniz →</a>
 					</p>
 				</div>
 			</section>
 
-			<section class="panels">
-				<div class="panel">
-					<h2>Neler Yapıyorum</h2>
-					<div class="cards">
-						<div class="card">
-							<h3>Ürün Geliştirme</h3>
-							<p>
-								Fikirden ürüne; araştırma, prototipleme ve
-								lansman süreçlerini uyguluyorum.
-							</p>
-						</div>
-						<div class="card">
-							<h3>Yazılım</h3>
-							<p>
-								Web ve mobil tarafında modern araçlarla uygulama
-								geliştiriyorum.
-							</p>
-						</div>
-						<div class="card">
-							<h3>İçerik Üretimi</h3>
-							<p>
-								Öğrendiklerimi yazılar ve notlarla paylaşıyorum.
-							</p>
-						</div>
-						<div class="card">
-							<h3>Sürekli Öğrenme</h3>
-							<p>
-								Yeni teknolojileri deneyerek kendimi
-								geliştiriyorum.
-							</p>
-						</div>
-					</div>
+			<!-- Şu An Section -->
+			<section class="flow-section">
+				<div class="section-header">
+					<h3>Şu An Ne İle Uğraşıyorum?</h3>
+					<span class="status-badge">
+						<span class="status-dot"></span> Aktif
+					</span>
 				</div>
-
-				<div class="panel">
-					<h2>Faydalı Linkler</h2>
-					<ul class="links">
-						<li>
-							<a
-								href="https://astro.build/"
-								target="_blank"
-								rel="noopener">Astro</a
-							>
-						</li>
-						<li>
-							<a
-								href="https://docs.astro.build/"
-								target="_blank"
-								rel="noopener">Astro Dokümantasyon</a
-							>
-						</li>
-						<li>
-							<a
-								href="https://developer.mozilla.org/"
-								target="_blank"
-								rel="noopener">MDN Web Docs</a
-							>
-						</li>
-						<li>
-							<a
-								href="https://github.com/"
-								target="_blank"
-								rel="noopener">GitHub</a
-							>
-						</li>
-						<li>
-							<a
-								href="https://fonts.google.com/"
-								target="_blank"
-								rel="noopener">Google Fonts</a
-							>
-						</li>
-					</ul>
+				<div class="flow-content">
+					<p>
+						Şu sıralar aktif olarak <strong>mobil uygulama</strong> ve <strong>oyun geliştirme dünyası</strong> ile ilgileniyor, bu alanlarda yeni projeler ve fikirler üretiyorum. Aynı zamanda yeni teknolojileri deneyimleyerek öğrendiklerimi ve sürecimi blog yazıları olarak belgeliyorum.
+					</p>
+					<p class="contact-note">
+						Bir şey hakkında konuşmak ya da sadece selam vermek isterseniz, <a href="mailto:yasinelbuz@gmail.com">bana ulaşabilirsiniz.</a>
+					</p>
 				</div>
 			</section>
 
+			<!-- Teknolojiler Section -->
+			<section class="flow-section">
+				<h3>Kullandığım Teknolojiler</h3>
+				<div class="tech-tags">
+					<span class="tech-tag">JavaScript (ES6+)</span>
+					<span class="tech-tag">TypeScript</span>
+					<span class="tech-tag">HTML5</span>
+					<span class="tech-tag">CSS3</span>
+					<span class="tech-tag">React</span>
+					<span class="tech-tag">Next.js</span>
+					<span class="tech-tag">Astro</span>
+					<span class="tech-tag">Vue.js</span>
+					<span class="tech-tag">Svelte</span>
+					<span class="tech-tag">Vite</span>
+					<span class="tech-tag">Node.js</span>
+					<span class="tech-tag">Tailwind CSS</span>
+					<span class="tech-tag">Sass / SCSS</span>
+					<span class="tech-tag">Redux</span>
+					<span class="tech-tag">Zustand</span>
+					<span class="tech-tag">TanStack Query (React Query)</span>
+					<span class="tech-tag">REST API</span>
+					<span class="tech-tag">GraphQL</span>
+					<span class="tech-tag">Webpack / Rollup</span>
+					<span class="tech-tag">Jest / Vitest</span>
+					<span class="tech-tag">Git & GitHub</span>
+					<span class="tech-tag">React Native</span>
+					<span class="tech-tag">Flutter</span>
+					<span class="tech-tag">Unity</span>
+				</div>
+			</section>
+
+			<!-- Son Proje Section -->
+			{
+				latestProject && (
+					<section class="flow-section">
+						<h3>Son Proje</h3>
+						<a class="card-item" href={latestProject.link}>
+							<div class="card-item__body">
+								<h4 class="card-item__title">{latestProject.title}</h4>
+								<p class="card-item__desc">{latestProject.description}</p>
+								<span class="card-item__link">Tüm Projeleri İncele →</span>
+							</div>
+							<div class="card-item__image">
+								<img src={latestProject.image} alt={latestProject.title} />
+							</div>
+						</a>
+					</section>
+				)
+			}
+
+			<!-- Son Yazı Section -->
 			{
 				latestPost && (
-					<section class="latest">
+					<section class="flow-section flow-section--last">
+						<h3>Son Yazı</h3>
 						<a
-							class="latest__card"
+							class="card-item"
 							href={`/blog/${latestPost.id}/`}
 						>
-							<div class="latest__body">
-								<p class="latest__date">
+							<div class="card-item__body">
+								<p class="card-item__meta">
 									<FormattedDate
 										date={latestPost.data.pubDate}
 									/>
 								</p>
-								<h3 class="latest__title">
+								<h4 class="card-item__title">
 									{latestPost.data.title}
-								</h3>
+								</h4>
 								{latestPost.data.description && (
-									<p class="latest__desc">
+									<p class="card-item__desc">
 										{latestPost.data.description}
 									</p>
 								)}
-								<span class="latest__more">Devamını oku →</span>
+								<span class="card-item__link">Yazıyı Oku →</span>
 							</div>
-							<div class="latest__image">
+							<div class="card-item__image">
 								{latestPost.data.heroImage ? (
 									<Image
 										width={800}
@@ -177,176 +175,219 @@ const latestPost = (await getCollection("blog")).sort(
 </html>
 
 <style>
-	.about {
-		display: grid;
-		grid-template-columns: 1fr 0fr;
-		gap: 2.5em;
-		align-items: start;
+	.flow-content h1 {
+		font-size: 2.2em;
+		margin-top: 0;
+		margin-bottom: 0.6em;
+		color: rgb(var(--black));
+		display: inline-block;
+		position: relative;
+		padding-bottom: 8px;
 	}
 
-	.about__image :global(img) {
+	.flow-content h1::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
 		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		aspect-ratio: 1 / 1;
-		object-fit: cover;
+		height: 5px;
+		background-color: #1a1a1a;
+		border-radius: 3px;
 	}
 
-	.about__content h1 {
-		margin-top: 0;
+	.about-more {
+		margin-top: 1.5em;
+		font-weight: 500;
 	}
 
-	.panels {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 2.5em;
-		margin-top: 4em;
-	}
-
-	.panel h2 {
-		margin-top: 0;
-		margin-bottom: 1.2em;
-		font-size: 1.6em;
-		color: rgb(var(--black));
-	}
-
-	.cards {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1.2em;
-	}
-
-	.card {
-		padding: 1.2em;
-		background: rgb(var(--gray-light));
-		border-radius: 12px;
-		border: 1px solid rgb(var(--gray-light));
-	}
-
-	.card h3 {
-		margin: 0 0 0.4em;
-		font-size: 1.05em;
-		color: rgb(var(--black));
-	}
-
-	.card p {
-		margin: 0;
-		font-size: 0.9em;
-		font-weight: 300;
-		line-height: 1.5;
-		color: rgb(var(--gray-dark));
-	}
-
-	.links {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.links li {
+	.flow-section {
+		padding-block: 2.8em;
 		border-bottom: 1px solid rgb(var(--gray-light));
 	}
 
-	.links a {
-		display: block;
-		padding: 0.8em 0;
-		color: rgb(var(--gray-dark));
-		text-decoration: none;
+	.flow-section--last {
+		border-bottom: none;
+		padding-bottom: 1em;
+	}
+
+	.flow-section h3 {
+		font-size: 1.6em;
+		color: rgb(var(--black));
+		margin: 0 0 1.2em;
+		font-family: var(--font-display);
+		display: inline-block;
+		position: relative;
+		padding-bottom: 8px;
+	}
+
+	.flow-section h3::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 5px;
+		background-color: #1a1a1a;
+		border-radius: 3px;
+	}
+
+	.section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.2em;
+	}
+
+	.section-header h3 {
+		margin: 0;
+	}
+
+	.status-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		font-size: 0.82em;
+		font-weight: 500;
+		color: #16a34a;
+		background: rgba(22, 163, 74, 0.08);
+		padding: 0.3em 0.7em;
+		border-radius: 20px;
+	}
+
+	.status-dot {
+		width: 7px;
+		height: 7px;
+		background-color: #16a34a;
+		border-radius: 50%;
+		display: inline-block;
+	}
+
+	.flow-content p {
+		margin: 0 0 1em;
 		font-weight: 300;
-		opacity: 0.85;
-		transition:
-			opacity 0.2s ease,
-			color 0.2s ease,
-			padding-left 0.2s ease;
+		line-height: 1.75;
+		color: rgb(var(--gray-dark));
+		font-size: 1.05em;
 	}
 
-	.links a:hover {
-		color: var(--accent);
-		opacity: 1;
-		padding-left: 0.4em;
+	.flow-content p:last-child {
+		margin-bottom: 0;
 	}
 
-	.latest {
-		margin-top: 4em;
+	.contact-note {
+		margin-top: 1.2em;
 	}
 
-	.latest__card {
+	.tech-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.7em;
+	}
+
+	.tech-tag {
+		font-size: 0.9em;
+		font-weight: 400;
+		color: rgb(var(--gray-dark));
+		background: rgb(var(--gray-light));
+		padding: 0.4em 0.85em;
+		border-radius: 8px;
+		border: 1px solid rgba(var(--black), 0.05);
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.tech-tag:hover {
+		background: #ffffff;
+		border-color: rgba(var(--black), 0.18);
+		transform: translateY(-2px);
+	}
+
+	.card-item {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 2.5em;
-		align-items: stretch;
+		gap: 2.2em;
+		align-items: center;
 		text-decoration: none;
 		color: inherit;
-		transition:
-			box-shadow 0.2s ease,
-			border-color 0.2s ease;
 	}
 
-	.latest__card:hover {
-		border-color: rgb(var(--gray));
-		box-shadow: var(--box-shadow);
-	}
-
-	.latest__body {
+	.card-item__body {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		gap: 0.5em;
 	}
 
-	.latest__image {
-		aspect-ratio: 4 / 3;
-		overflow: hidden;
-	}
-
-	.latest__image :global(img) {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-		transition: transform 0.3s ease;
-	}
-
-	.latest__card:hover .latest__image :global(img) {
-		transform: scale(1.02);
-	}
-
-	.latest__date {
+	.card-item__meta {
 		margin: 0;
-		font-size: 0.85em;
+		font-size: 0.82em;
+		font-weight: 300;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 		color: rgb(var(--gray));
 	}
 
-	.latest__title {
+	.card-item__title {
 		margin: 0;
-		font-size: 1.6em;
+		font-size: 1.55em;
 		color: rgb(var(--black));
-		line-height: 1.2;
+		line-height: 1.3;
 		font-family: var(--font-display);
+		transition: color 0.2s ease;
 	}
 
-	.latest__desc {
+	.card-item:hover .card-item__title {
+		color: var(--accent);
+	}
+
+	.card-item__desc {
 		margin: 0;
 		font-weight: 300;
 		line-height: 1.6;
 		color: rgb(var(--gray-dark));
+		font-size: 0.98em;
 	}
 
-	.latest__more {
+	.card-item__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		margin-top: 0.3em;
 		color: var(--accent);
 		font-weight: 500;
+		font-size: 0.95em;
+		transition: transform 0.2s ease;
+	}
+
+	.card-item:hover .card-item__link {
+		transform: translateX(4px);
+	}
+
+	.card-item__image {
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		border-radius: 12px;
+	}
+
+	.card-item__image img,
+	.card-item__image :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		border-radius: 12px;
+		transition: transform 0.4s ease;
+	}
+
+	.card-item:hover .card-item__image img,
+	.card-item:hover .card-item__image :global(img) {
+		transform: scale(1.03);
 	}
 
 	@media (max-width: 720px) {
-		.about {
-			grid-template-columns: 1fr;
-			gap: 1.5em;
+		.flow-section {
+			padding-block: 2em;
 		}
-		.panels {
-			grid-template-columns: 1fr;
-			gap: 3em;
-		}
-		.latest__card {
+		.card-item {
 			grid-template-columns: 1fr;
 			gap: 1.2em;
 		}

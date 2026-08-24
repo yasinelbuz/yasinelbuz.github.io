@@ -1,13 +1,15 @@
 ---
-import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header>
 	<nav class="container">
-		<div class="container-inline">
-			<a href="/" class="logo">{SITE_TITLE}</a>
+		<div class="header-inner">
+			<a href="/" class="logo">
+				Yasin Elbüz<span class="logo-dot">.</span>
+			</a>
 			<div class="internal-links">
+				<HeaderLink href="/">Anasayfa</HeaderLink>
 				<HeaderLink href="/blog">Notlar</HeaderLink>
 				<HeaderLink href="/projects">Projeler</HeaderLink>
 				<HeaderLink href="/about">Hakkımda</HeaderLink>
@@ -15,64 +17,84 @@ import HeaderLink from "./HeaderLink.astro";
 		</div>
 	</nav>
 </header>
+
 <style>
 	header {
-		margin: 0;
-		padding: 20px;
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: rgba(255, 255, 255, 0.88);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid rgba(var(--black), 0.07);
+		padding: 1.1em 0;
+	}
+
+	.header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.logo {
-		font-size: 2.5em;
-		font-weight: 900;
+		font-size: 1.5em;
+		font-weight: 800;
+		color: rgb(var(--black));
+		text-decoration: none;
+		letter-spacing: -0.02em;
+		font-family: var(--font-display);
+		transition: opacity 0.2s ease;
 	}
 
-	.container-inline {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+	.logo:hover {
+		opacity: 0.8;
 	}
 
-	a,
-	a.active {
-		text-decoration: none;
-	}
-
-	nav a {
-		color: var(--black);
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
+	.logo-dot {
+		color: #ffde00;
+		text-shadow: 0 0 1px #1a1a1a;
 	}
 
 	.internal-links {
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 1.6em;
+		align-items: center;
+		gap: 0.4em;
 	}
 
-	.internal-links > a {
-		margin: 0;
-		padding: 0.3em 0.1em;
-		font-size: 1.1em;
+	.internal-links :global(a) {
+		padding: 0.45em 0.95em;
+		font-size: 0.95em;
 		font-weight: 500;
-		letter-spacing: 0.02em;
-		color: var(--black);
-		transition: color 0.2s ease;
+		color: rgb(var(--gray-dark));
+		border-radius: 20px;
+		text-decoration: none;
+		transition: all 0.2s ease;
 	}
 
-	.internal-links > a:last-child {
-		margin-right: 0px;
+	.internal-links :global(a:hover) {
+		color: rgb(var(--black));
+		background: rgba(var(--black), 0.05);
 	}
 
-	.internal-links > a:hover {
-		color: var(--accent);
+	.internal-links :global(a.active) {
+		color: #ffffff;
+		background: rgb(var(--black));
+		font-weight: 600;
 	}
 
-	.internal-links > a.active {
-		font-weight: 800;
-		color: var(--accent);
+	@media (max-width: 640px) {
+		.header-inner {
+			flex-direction: column;
+			gap: 0.8em;
+		}
+
+		.internal-links {
+			gap: 0.2em;
+		}
+
+		.internal-links :global(a) {
+			padding: 0.35em 0.7em;
+			font-size: 0.9em;
+		}
 	}
 </style>
