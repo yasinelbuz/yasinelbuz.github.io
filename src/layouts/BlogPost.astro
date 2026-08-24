@@ -22,9 +22,16 @@ const {
 } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="tr">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={title}
+			description={description}
+			image={heroImage as any}
+			ogType="article"
+			pubDate={pubDate}
+			updatedDate={updatedDate}
+		/>
 		<style>
 			.hero-image {
 				width: 100%;

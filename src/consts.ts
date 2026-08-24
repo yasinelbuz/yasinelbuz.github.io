@@ -3,3 +3,5 @@
 
 export const SITE_TITLE = 'Yasin Elbüz | Yazılım Geliştirici & Frontend Engineer';
 export const SITE_DESCRIPTION = "İstanbul'da yaşayan, Javascript ekosistemi, mobil uygulama ve oyun geliştirme ile ilgilenen yazılım geliştiricisi Yasin Elbüz'ün kişisel blogu ve portfolyosu.";
+export const SITE_URL = 'https://yasinelbuz.github.io';
+export const SITE_AUTHOR = 'Yasin Elbüz';
