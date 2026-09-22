@@ -119,7 +119,6 @@ const blogPostingSchema =
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
@@ -134,7 +133,7 @@ const blogPostingSchema =
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-	href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
 	rel="stylesheet"
 />
 
@@ -171,7 +170,11 @@ const blogPostingSchema =
 		/>
 	)
 }
-{ogType === "article" && <meta property="article:author" content={SITE_AUTHOR} />}
+{
+	ogType === "article" && (
+		<meta property="article:author" content={SITE_AUTHOR} />
+	)
+}
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -192,6 +195,24 @@ const blogPostingSchema =
 		/>
 	)
 }
+
+<!-- Google Search Console -->
+<meta
+	name="google-site-verification"
+	content="YOUR_SEARCH_CONSOLE_VERIFICATION_CODE"
+/>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2GJF0NZ7FE"
+></script>
+<script is:inline>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag("js", new Date());
+	gtag("config", "G-2GJF0NZ7FE");
+</script>
 
 <!-- Page transitions -->
 <ClientRouter />

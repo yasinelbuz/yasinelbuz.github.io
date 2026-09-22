@@ -9,103 +9,350 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// Okuma süresi hesaplama
+const getReadingTime = (content?: string, description?: string) => {
+	const text = (content || description || "").trim();
+	const wordCount = text ? text.split(/\s+/).filter(Boolean).length : 0;
+	const minutes = Math.max(1, Math.ceil(wordCount / 180));
+	return `${minutes} dk`;
+};
 ---
 
 <!doctype html>
 <html lang="tr">
 	<head>
-		<BaseHead
-			title={SITE_TITLE}
-			description={SITE_DESCRIPTION}
-		/>
-		<style>
-			.blog-header {
-				text-align: center;
-				padding: 3em 0 2em;
-				border-bottom: 1px solid rgb(var(--black), 10%);
-				margin-bottom: 2.5em;
-			}
-
-			.blog-header h1 {
-				margin: 0 0 0.4em;
-				font-size: 2.441em;
-			}
-
-			.blog-header p {
-				margin: 0;
-				font-weight: 300;
-				line-height: 1.6;
-				color: rgb(var(--gray));
-				font-size: 1.1em;
-			}
-
-			.post-list {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-
-			.post-list li {
-				border-bottom: 1px solid rgb(var(--black), 10%);
-				padding: 1.5em 0;
-			}
-
-			.post-list li:last-child {
-				border-bottom: none;
-			}
-
-			.post-link {
-				display: block;
-				text-decoration: none;
-				color: inherit;
-			}
-
-			.post-title {
-				margin: 0 0 0.3em;
-				font-size: 1.25rem;
-				color: rgb(var(--black));
-				line-height: 1.3;
-				font-family: var(--font-display);
-			}
-
-			.post-link:hover .post-title {
-				color: var(--accent);
-			}
-
-			.post-date {
-				margin: 0;
-				font-size: 0.85rem;
-				color: rgb(var(--gray));
-				font-weight: 300;
-			}
-		</style>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main class="container">
-			<header class="blog-header">
-				<h1>Notlar</h1>
-				<p>
-					Öğrendiklerimi, ürettiklerimi ve yol boyunca karşılaştığım
-					şeylerin küçük bir arşivi.
-				</p>
-			</header>
 
-			<ul class="post-list">
-				{
-					posts.map((post) => (
-						<li>
-							<a class="post-link" href={`/blog/${post.id}/`}>
-								<h2 class="post-title">{post.data.title}</h2>
-								<p class="post-date">
-									<FormattedDate date={post.data.pubDate} />
-								</p>
-							</a>
-						</li>
-					))
-				}
-			</ul>
+		<main class="container">
+			<!-- Not Listesi -->
+			<section class="notes-section">
+				<ul class="notes-list" id="notes-list">
+					{
+						posts.map((post) => {
+							const readingTime = getReadingTime(
+								post.body,
+								post.data.description,
+							);
+							return (
+								<li class="note-item">
+									<article class="note-article">
+										<div class="note-meta">
+											<FormattedDate
+												date={post.data.pubDate}
+											/>
+											<span class="meta-separator">
+												•
+											</span>
+											<span class="reading-time">
+												{readingTime} okuma
+											</span>
+										</div>
+
+										<h2 class="note-title">
+											<a href={`/blog/${post.id}/`}>
+												{post.data.title}
+											</a>
+										</h2>
+
+										{post.data.description && (
+											<p class="note-excerpt">
+												{post.data.description}
+											</p>
+										)}
+
+										<div class="note-footer">
+											<a
+												href={`/blog/${post.id}/`}
+												class="read-more"
+											>
+												Notu oku
+												<svg
+													class="arrow-icon"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<line
+														x1="5"
+														y1="12"
+														x2="19"
+														y2="12"
+													/>
+													<polyline points="12 5 19 12 12 19" />
+												</svg>
+											</a>
+										</div>
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</section>
 		</main>
+
 		<Footer />
+
+		<style>
+			/* Intro Section */
+			.intro-section {
+				padding: 2.5rem 0 2.2rem;
+				border-bottom: 1px solid rgba(var(--black), 0.08);
+				margin-bottom: 2rem;
+			}
+
+			.intro-badge-row {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				margin-bottom: 1rem;
+				font-family: var(--font-mono);
+				font-size: 0.82rem;
+				color: rgb(var(--gray));
+			}
+
+			.note-counter-badge {
+				background: rgba(var(--black), 0.05);
+				color: rgb(var(--black));
+				font-weight: 500;
+				padding: 0.2rem 0.65rem;
+				border-radius: 12px;
+				letter-spacing: 0.02em;
+			}
+
+			.badge-dot {
+				color: rgba(var(--gray), 0.6);
+			}
+
+			.sub-badge {
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-size: 0.75rem;
+			}
+
+			.intro-title {
+				font-family: var(--font-serif);
+				font-size: 2.5rem;
+				font-weight: 600;
+				color: rgb(var(--black));
+				margin: 0 0 0.6rem;
+				line-height: 1.18;
+				letter-spacing: -0.02em;
+			}
+
+			.intro-description {
+				font-family: var(--font-sans);
+				font-size: 1.1rem;
+				color: rgb(var(--gray-dark));
+				margin: 0 0 1.5rem;
+				line-height: 1.65;
+				max-width: 620px;
+				opacity: 0.9;
+			}
+
+			/* Newsletter Box */
+			.newsletter-box {
+				background: #ffffff;
+				border: 1px solid rgba(var(--black), 0.1);
+				border-radius: 12px;
+				padding: 1.4rem 1.6rem;
+				margin-top: 1.5rem;
+				max-width: 580px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+			}
+
+			.newsletter-title {
+				font-family: var(--font-serif);
+				font-size: 1.15rem;
+				font-weight: 600;
+				color: rgb(var(--black));
+				margin: 0 0 0.3rem;
+			}
+
+			.newsletter-desc {
+				font-family: var(--font-sans);
+				font-size: 0.92rem;
+				color: rgb(var(--gray));
+				margin: 0 0 1rem;
+				line-height: 1.5;
+			}
+
+			.input-group {
+				display: flex;
+				gap: 0.5rem;
+			}
+
+			.input-group input {
+				flex: 1;
+				padding: 0.65rem 1rem;
+				font-family: var(--font-sans);
+				font-size: 0.92rem;
+				color: rgb(var(--black));
+				background: var(--bg-paper);
+				border: 1px solid rgba(var(--black), 0.14);
+				border-radius: 8px;
+				outline: none;
+				transition:
+					border-color 0.2s ease,
+					box-shadow 0.2s ease;
+			}
+
+			.input-group input:focus {
+				border-color: var(--accent);
+				box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+			}
+
+			.input-group input::placeholder {
+				color: rgba(var(--gray), 0.8);
+			}
+
+			.newsletter-btn {
+				padding: 0.65rem 1.25rem;
+				font-family: var(--font-sans);
+				font-size: 0.92rem;
+				font-weight: 600;
+				color: #ffffff;
+				background: rgb(var(--black));
+				border: none;
+				border-radius: 8px;
+				cursor: pointer;
+				white-space: nowrap;
+				transition: background-color 0.2s ease;
+			}
+
+			.newsletter-btn:hover {
+				background: var(--accent);
+			}
+
+			/* Notes Section */
+			.notes-section {
+				margin-top: 1rem;
+			}
+
+			.notes-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.note-item {
+				padding: 1.8rem 0;
+				border-bottom: 1px solid rgba(var(--black), 0.07);
+				transition: transform 0.15s ease;
+			}
+
+			.note-item:last-child {
+				border-bottom: none;
+			}
+
+			.note-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-family: var(--font-mono);
+				font-size: 0.82rem;
+				color: rgb(var(--gray));
+				margin-bottom: 0.45rem;
+			}
+
+			.meta-separator {
+				opacity: 0.5;
+			}
+
+			.reading-time {
+				color: rgb(var(--gray));
+			}
+
+			.note-title {
+				font-family: var(--font-serif);
+				font-size: 1.45rem;
+				font-weight: 600;
+				margin: 0 0 0.5rem;
+				line-height: 1.3;
+			}
+
+			.note-title a {
+				color: rgb(var(--black));
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.note-title a:hover {
+				color: var(--accent);
+			}
+
+			.note-excerpt {
+				font-family: var(--font-sans);
+				font-size: 1rem;
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+				margin: 0 0 0.85rem;
+				opacity: 0.88;
+			}
+
+			.note-footer {
+				display: flex;
+				align-items: center;
+			}
+
+			.read-more {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-family: var(--font-sans);
+				font-size: 0.88rem;
+				font-weight: 500;
+				color: var(--accent);
+				text-decoration: none;
+				transition: gap 0.2s ease;
+			}
+
+			.arrow-icon {
+				width: 14px;
+				height: 14px;
+				transition: transform 0.2s ease;
+			}
+
+			.note-item:hover .arrow-icon {
+				transform: translateX(4px);
+			}
+
+			@media (max-width: 640px) {
+				.intro-title {
+					font-size: 2rem;
+				}
+
+				.intro-description {
+					font-size: 1rem;
+				}
+
+				.newsletter-box {
+					padding: 1.2rem;
+				}
+
+				.input-group {
+					flex-direction: column;
+				}
+
+				.newsletter-btn {
+					width: 100%;
+				}
+
+				.note-title {
+					font-size: 1.25rem;
+				}
+
+				.note-item {
+					padding: 1.4rem 0;
+				}
+			}
+		</style>
 	</body>
 </html>
