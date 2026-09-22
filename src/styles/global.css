@@ -5,25 +5,24 @@
  */
 
 :root {
-	--font-serif: "Lora", Georgia, Cambria, "Times New Roman", serif;
-	--font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--font-serif: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+	--font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 	--font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-	--font-display: var(--font-serif);
-	--page-width: 960px;
-	--page-padding: 1.25rem;
-	--accent: #1d4ed8;
-	--accent-dark: #1e40af;
-	--black: 28, 25, 23;
-	--gray: 120, 113, 108;
-	--gray-light: 245, 245, 244;
-	--gray-dark: 44, 40, 37;
-	--bg-paper: #faf9f5;
-	--box-shadow:
-		0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px rgba(0, 0, 0, 0.03);
+	--font-display: var(--font-mono);
+	--page-width: 860px;
+	--page-padding: 1.5rem;
+	--accent: #111111;
+	--accent-dark: #000000;
+	--black: 17, 17, 17;
+	--gray: 140, 140, 140;
+	--gray-light: 250, 250, 250;
+	--gray-dark: 51, 51, 51;
+	--bg-paper: #ffffff;
 }
 
 body {
 	font-family: var(--font-sans);
+	font-weight: 300;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -31,8 +30,8 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 18px;
-	line-height: 1.75;
+	font-size: 17px;
+	line-height: 1.8;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -57,8 +56,9 @@ h5,
 h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
-	line-height: 1.2;
+	line-height: 1.3;
 	font-family: var(--font-display);
+	font-weight: 400;
 }
 
 h1 {
@@ -83,7 +83,7 @@ h5 {
 
 strong,
 b {
-	font-weight: 700;
+	font-weight: 500;
 }
 
 a {
@@ -98,8 +98,9 @@ p {
 	margin-bottom: 1em;
 }
 
+/* Global prose - BlogPost.astro kendi prose stillerini yönetir */
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1.4em;
 }
 
 textarea {
@@ -137,10 +138,12 @@ pre>code {
 }
 
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
+	border-left: 2px solid rgba(var(--black), 0.15);
+	padding: 0.2rem 0 0.2rem 1.25rem;
 	margin: 0;
-	font-size: 1.333em;
+	font-size: 1em;
+	color: rgb(var(--gray));
+	font-style: italic;
 }
 
 hr {

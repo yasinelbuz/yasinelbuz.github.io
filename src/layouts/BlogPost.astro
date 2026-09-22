@@ -33,118 +33,499 @@ const {
 			updatedDate={updatedDate}
 		/>
 		<style>
-			.hero-image {
-				width: 100%;
+			/* ============================================
+			   POST PAGE TOP BAR
+			   ============================================ */
+			.post-topbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 200;
+				height: 52px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 1.25rem;
+				background: rgba(255, 255, 255, 0.92);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border-bottom: 1px solid rgba(var(--black), 0.07);
 			}
-		.hero-image img {
-			display: block;
-			margin: 0 auto;
-			border-radius: 0;
-			box-shadow: none;
-		}
-			.prose {
+
+			.topbar-left {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+			}
+
+			.back-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				font-size: 0.82rem;
+				font-weight: 400;
+				letter-spacing: 0.02em;
+				transition: opacity 0.2s ease;
+				padding: 0.4rem 0.7rem;
+				border-radius: 4px;
+				border: 1px solid rgba(var(--black), 0.1);
+			}
+
+			.back-btn:hover {
+				background: rgba(var(--black), 0.04);
+				opacity: 1;
+			}
+
+			.back-btn svg {
+				width: 16px;
+				height: 16px;
+				stroke: currentColor;
+				fill: none;
+				stroke-width: 2;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				flex-shrink: 0;
+			}
+
+			.topbar-right {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			/* Okuma modu butonu */
+			.read-mode-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-size: 0.78rem;
+				font-weight: 400;
+				letter-spacing: 0.03em;
+				color: rgb(var(--gray));
+				background: none;
+				border: 1px solid rgba(var(--black), 0.1);
+				border-radius: 4px;
+				padding: 0.4rem 0.7rem;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				font-family: var(--font-mono);
+			}
+
+			.read-mode-btn:hover {
+				color: rgb(var(--black));
+				border-color: rgba(var(--black), 0.25);
+			}
+
+			.read-mode-btn.active {
+				background: rgb(var(--black));
+				color: #fff;
+				border-color: rgb(var(--black));
+			}
+
+			.read-mode-btn svg {
+				width: 13px;
+				height: 13px;
+				stroke: currentColor;
+				fill: none;
+				stroke-width: 2;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+
+			/* ============================================
+			   PAGE LAYOUT
+			   ============================================ */
+			body {
+				padding-top: 52px; /* topbar yüksekliği kadar */
+			}
+
+			.post-container {
+				width: 1100px;
+				max-width: 100%;
+				margin-inline: auto;
+				padding-inline: 1.5rem;
+				box-sizing: border-box;
+			}
+
+			/* Hero image — daha küçük, ortalanmış */
+			.hero-image {
+				max-width: 720px;
+				margin: 2rem auto 0;
+			}
+
+			.hero-image img {
+				display: block;
 				width: 100%;
-				max-width: 860px;
-				margin: auto;
-				padding: 1.5em 0;
+				height: auto;
+				border-radius: 4px;
+				box-shadow: none;
+			}
+
+			/* ============================================
+			   PROSE
+			   ============================================ */
+			.prose {
+				max-width: 680px;
+				margin-inline: auto;
+				padding-block: 2.5rem 5rem;
 				color: rgb(var(--gray-dark));
 			}
-			.title {
-				margin-bottom: 2em;
-				padding: 1em 0;
-				text-align: left;
-				line-height: 1.3;
-				border-bottom: 1px solid rgba(var(--black), 0.08);
+
+			.post-title-block {
+				margin-bottom: 2.5rem;
+				padding-bottom: 1.5rem;
+				border-bottom: 1px solid rgba(var(--black), 0.07);
 			}
-			.title h1 {
-				margin: 0.3em 0 0;
-				font-family: var(--font-serif);
-				font-size: 2.75em;
-				font-weight: 700;
-				line-height: 1.2;
-				color: rgb(var(--black));
-				letter-spacing: -0.02em;
-			}
-			.date {
-				margin-bottom: 0.3em;
-				color: rgb(var(--gray));
-				font-size: 0.9rem;
+
+			.post-date {
+				font-size: 0.78rem;
 				font-weight: 300;
-				letter-spacing: 0.03em;
+				color: rgb(var(--gray));
+				letter-spacing: 0.06em;
 				text-transform: uppercase;
+				margin-bottom: 0.9rem;
 			}
-			.last-updated-on {
+
+			.post-date .last-updated-on {
+				font-style: italic;
+				margin-top: 0.2rem;
+				display: block;
+			}
+
+			.prose h1 {
+				font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+				font-weight: 400;
+				line-height: 1.3;
+				color: rgb(var(--black));
+				margin: 0;
+				letter-spacing: -0.01em;
+			}
+
+			/* Headings */
+			.prose h2 {
+				font-size: 1.2rem;
+				font-weight: 500;
+				color: rgb(var(--black));
+				margin: 2.5rem 0 0.8rem;
+				line-height: 1.35;
+				padding-top: 0.5rem;
+				border-top: 1px solid rgba(var(--black), 0.06);
+			}
+
+			.prose h3 {
+				font-size: 1rem;
+				font-weight: 500;
+				color: rgb(var(--black));
+				margin: 2rem 0 0.6rem;
+				line-height: 1.4;
+			}
+
+			.prose h4,
+			.prose h5,
+			.prose h6 {
+				font-size: 0.95rem;
+				font-weight: 500;
+				color: rgb(var(--black));
+				margin: 1.5rem 0 0.5rem;
+			}
+
+			/* Paragraphs — okunabilirlik */
+			.prose p {
+				font-size: 0.97rem;
+				line-height: 2;
+				font-weight: 300;
+				color: rgb(var(--gray-dark));
+				margin: 0 0 1.5rem;
+			}
+
+			/* Links */
+			.prose a {
+				color: rgb(var(--black));
+				text-decoration: underline;
+				text-decoration-color: rgba(var(--black), 0.25);
+				text-underline-offset: 4px;
+				transition: text-decoration-color 0.2s ease;
+			}
+
+			.prose a:hover {
+				text-decoration-color: rgb(var(--black));
+			}
+
+			/* Lists */
+			.prose ul,
+			.prose ol {
+				padding-left: 1.4rem;
+				margin: 0 0 1.5rem;
+			}
+
+			.prose li {
+				font-size: 0.97rem;
+				font-weight: 300;
+				line-height: 1.9;
+				margin-bottom: 0.35rem;
+				color: rgb(var(--gray-dark));
+			}
+
+			/* Blockquote */
+			.prose blockquote {
+				border-left: 2px solid rgba(var(--black), 0.12);
+				padding: 0.25rem 0 0.25rem 1.25rem;
+				margin: 1.75rem 0;
+				color: rgb(var(--gray));
 				font-style: italic;
 			}
-		.back {
-			display: inline-flex;
-			align-items: center;
-			gap: 0;
-			margin-bottom: 1em;
-			padding: 0.5em 0;
-			color: rgb(var(--black));
-			text-decoration: none;
-			font-weight: 300;
-			letter-spacing: 0.02em;
-			transition: opacity 0.2s ease;
-		}
-		.back:hover {
-			color: rgb(var(--black));
-			opacity: 0.7;
-		}
-		.back svg {
-			width: 24px;
-			height: 24px;
-			fill: currentColor;
-			transform: scaleX(-1);
-		}
+
+			.prose blockquote p {
+				margin: 0;
+				color: inherit;
+				font-size: 0.97rem;
+			}
+
+			/* Inline code */
+			.prose code:not(pre code) {
+				font-family: var(--font-mono);
+				font-size: 0.83em;
+				background: rgba(var(--black), 0.05);
+				color: rgb(var(--black));
+				padding: 0.15em 0.4em;
+				border-radius: 3px;
+			}
+
+			/* Code blocks */
+			.prose pre {
+				background: #111;
+				color: #d4d4d4;
+				border-radius: 6px;
+				padding: 1.25rem 1.5rem;
+				margin: 1.75rem 0;
+				overflow-x: auto;
+				font-size: 0.83rem;
+				line-height: 1.75;
+			}
+
+			.prose pre code {
+				all: unset;
+				font-family: var(--font-mono);
+				font-size: inherit;
+				line-height: inherit;
+				color: inherit;
+			}
+
+			/* HR */
+			.prose hr {
+				border: none;
+				border-top: 1px solid rgba(var(--black), 0.07);
+				margin: 2.5rem 0;
+			}
+
+			/* Images — içerik içi resimler küçük ve ortalı */
+			.prose img {
+				max-width: 80%;
+				height: auto;
+				border-radius: 4px;
+				margin: 1.75rem auto;
+				display: block;
+				opacity: 0.95;
+			}
+
+			/* Tables */
+			.prose table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 0.88rem;
+				margin: 1.75rem 0;
+			}
+
+			.prose th {
+				text-align: left;
+				font-weight: 500;
+				padding: 0.5rem 0.75rem;
+				border-bottom: 1px solid rgba(var(--black), 0.1);
+			}
+
+			.prose td {
+				padding: 0.5rem 0.75rem;
+				border-bottom: 1px solid rgba(var(--black), 0.04);
+				font-weight: 300;
+				vertical-align: top;
+			}
+
+			/* ============================================
+			   OKUMA MODU
+			   ============================================ */
+			body.reading-mode {
+				background: #f5f0e8;
+			}
+
+			body.reading-mode .post-topbar {
+				background: rgba(245, 240, 232, 0.95);
+			}
+
+			body.reading-mode .prose {
+				max-width: 620px;
+			}
+
+			body.reading-mode .prose p,
+			body.reading-mode .prose li {
+				font-size: 1.05rem;
+				line-height: 2.1;
+				color: #2c2216;
+			}
+
+			body.reading-mode .prose h1 {
+				color: #1a1208;
+			}
+
+			body.reading-mode .prose h2,
+			body.reading-mode .prose h3,
+			body.reading-mode .prose h4 {
+				color: #1a1208;
+			}
+
+			body.reading-mode .prose code:not(pre code) {
+				background: rgba(0, 0, 0, 0.08);
+			}
+
+			/* Mobile */
+			@media (max-width: 640px) {
+				.post-topbar {
+					padding: 0 1rem;
+				}
+
+				.back-btn span {
+					display: none;
+				}
+
+				.read-mode-btn span {
+					display: none;
+				}
+
+				.prose {
+					padding-block: 1.5rem 3rem;
+				}
+
+				.prose h1 {
+					font-size: 1.5rem;
+				}
+
+				.prose h2 {
+					font-size: 1.1rem;
+				}
+
+				.prose img {
+					max-width: 100%;
+				}
+
+				.prose pre {
+					font-size: 0.78rem;
+					padding: 1rem;
+				}
+			}
 		</style>
 	</head>
 
 	<body>
+		<!-- Üst bar: geri oku + okuma modu -->
+		<div class="post-topbar">
+			<div class="topbar-left">
+				<a class="back-btn" href="/" aria-label="Ana sayfaya dön">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<polyline points="15 18 9 12 15 6"></polyline>
+					</svg>
+					<span>Notlar</span>
+				</a>
+			</div>
+			<div class="topbar-right">
+				<button
+					class="read-mode-btn"
+					id="readModeBtn"
+					aria-pressed="false"
+					title="Okuma modunu aç/kapat"
+				>
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
+						></path>
+						<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+						></path>
+					</svg>
+					<span>Okuma Modu</span>
+				</button>
+			</div>
+		</div>
+
 		{showHeader && <Header />}
-		<main class="container">
-			<article>
-				{!showHeader && (
-					<a class="back" href="/">
-						<svg viewBox="0 0 24 24" aria-hidden="true"
-							><path
-								d="M4 11h12.17l-5.59-5.59L12 4l8 8-8 8-1.41-1.41L16.17 13H4z"
-							></path></svg
-						>
-					</a>
-				)}
-				<div class="hero-image">
-					{
-						heroImage && (
+
+		<main>
+			<div class="post-container">
+				{
+					heroImage && (
+						<div class="hero-image">
 							<Image
-								width={1020}
-								height={510}
+								width={720}
+								height={360}
 								src={heroImage}
 								alt=""
 							/>
-						)
-					}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
+						</div>
+					)
+				}
+
+				<article class="prose">
+					<div class="post-title-block">
+						<div class="post-date">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on{" "}
+									<span class="last-updated-on">
+										Son güncelleme:{" "}
 										<FormattedDate date={updatedDate} />
-									</div>
+									</span>
 								)
 							}
 						</div>
 						<h1>{title}</h1>
 					</div>
+
 					<slot />
-				</div>
-			</article>
+				</article>
+			</div>
 		</main>
+
 		{showFooter && <Footer />}
+
+		<script is:inline>
+			function initReadingMode() {
+				var btn = document.getElementById("readModeBtn");
+				var body = document.body;
+				var STORAGE_KEY = "reading-mode";
+
+				if (!btn) return;
+
+				// Sayfa açılışında tercihi yükle
+				if (localStorage.getItem(STORAGE_KEY) === "1") {
+					body.classList.add("reading-mode");
+					btn.classList.add("active");
+					btn.setAttribute("aria-pressed", "true");
+				}
+
+				// Önceki listener'ı temizle (View Transitions için)
+				var newBtn = btn.cloneNode(true);
+				btn.parentNode.replaceChild(newBtn, btn);
+
+				newBtn.addEventListener("click", function () {
+					var isActive = body.classList.toggle("reading-mode");
+					newBtn.classList.toggle("active", isActive);
+					newBtn.setAttribute("aria-pressed", String(isActive));
+					localStorage.setItem(STORAGE_KEY, isActive ? "1" : "0");
+				});
+			}
+
+			// Hem ilk yükleme hem View Transitions sonrası çalışsın
+			document.addEventListener("DOMContentLoaded", initReadingMode);
+			document.addEventListener("astro:page-load", initReadingMode);
+		</script>
 	</body>
 </html>

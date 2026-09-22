@@ -6,7 +6,7 @@ import HeaderLink from "./HeaderLink.astro";
 	<nav class="container">
 		<div class="header-inner">
 			<a href="/" class="logo">
-				Yasin Elbüz<span class="logo-dot">.</span>
+				Yasin Elbüz
 			</a>
 			<div class="internal-links">
 				<HeaderLink href="/">Notlar</HeaderLink>
@@ -18,14 +18,8 @@ import HeaderLink from "./HeaderLink.astro";
 
 <style>
 	header {
-		position: sticky;
-		top: 0;
-		z-index: 50;
-		background: rgba(255, 255, 255, 0.88);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(var(--black), 0.07);
-		padding: 1.1em 0;
+		padding: 2em 0;
+		background: transparent;
 	}
 
 	.header-inner {
@@ -35,64 +29,49 @@ import HeaderLink from "./HeaderLink.astro";
 	}
 
 	.logo {
-		font-size: 1.5em;
-		font-weight: 800;
+		font-size: 1.25em;
+		font-weight: 500;
 		color: rgb(var(--black));
 		text-decoration: none;
-		letter-spacing: -0.02em;
+		letter-spacing: 0.02em;
 		font-family: var(--font-display);
 		transition: opacity 0.2s ease;
 	}
 
 	.logo:hover {
-		opacity: 0.8;
-	}
-
-	.logo-dot {
-		color: #ffde00;
-		text-shadow: 0 0 1px #1a1a1a;
+		opacity: 0.7;
 	}
 
 	.internal-links {
 		display: flex;
 		align-items: center;
-		gap: 0.4em;
+		gap: 1.5em;
 	}
 
 	.internal-links :global(a) {
-		padding: 0.45em 0.95em;
-		font-size: 0.95em;
-		font-weight: 500;
+		font-size: 0.9em;
+		font-weight: 300;
 		color: rgb(var(--gray-dark));
-		border-radius: 20px;
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition: color 0.2s ease;
+		position: relative;
 	}
 
 	.internal-links :global(a:hover) {
 		color: rgb(var(--black));
-		background: rgba(var(--black), 0.05);
 	}
 
 	.internal-links :global(a.active) {
-		color: #ffffff;
-		background: rgb(var(--black));
-		font-weight: 600;
+		color: rgb(var(--black));
 	}
 
 	@media (max-width: 640px) {
+		header {
+			padding: 1.5em 0;
+		}
 		.header-inner {
 			flex-direction: column;
-			gap: 0.8em;
-		}
-
-		.internal-links {
-			gap: 0.2em;
-		}
-
-		.internal-links :global(a) {
-			padding: 0.35em 0.7em;
-			font-size: 0.9em;
+			gap: 1em;
 		}
 	}
 </style>
