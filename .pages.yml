@@ -1,0 +1,54 @@
+media:
+  - name: blog-images
+    label: Blog Görselleri
+    input: src/assets/blog
+    output: ../../assets/blog
+    categories: [image]
+
+content:
+  - name: blog
+    label: Blog Yazıları
+    type: collection
+    path: src/content/blog
+    filename:
+      template: "{primary}.md"
+      field: true
+    view:
+      fields: [title, pubDate]
+      primary: title
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Başlık
+        type: string
+        required: true
+      - name: description
+        label: Açıklama (SEO)
+        type: text
+        required: true
+      - name: pubDate
+        label: Yayın Tarihi
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updatedDate
+        label: Güncellenme Tarihi
+        type: date
+        required: false
+        options:
+          format: yyyy-MM-dd
+      - name: heroImage
+        label: Kapak Görseli
+        type: image
+        required: false
+        options:
+          media: blog-images
+      - name: body
+        label: İçerik
+        type: rich-text
+        options:
+          media: blog-images
