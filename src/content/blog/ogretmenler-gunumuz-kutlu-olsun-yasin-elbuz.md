@@ -11,5 +11,3 @@ Geçen sene bir iki kişi Öğretmenler Günü'mü kutlamıştı. Bu sene ise du
 Öncelikle şehit öğretmenlerimizin, ardından işini iyi yapmak için mücadele eden ve emek veren tüm öğretmenlerin Öğretmenler Günü'nü kutlamak isterim.
 
 Öğretmenler Günümüz kutlu olsun... ❤️  
-  
-  
